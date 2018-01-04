@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+const io = require('socket.io');
 
 // Get our API routes
 const api = require('./server/routes/api');
@@ -34,6 +35,34 @@ app.set('port', port);
  * Create HTTP server.
  */
 const server = http.createServer(app);
+
+/**
+ * Attach WebSockets
+ */
+// Create a Socket.IO instance, passing it our server
+var socket = io.listen(server);
+
+/*
+  const socket = io()
+  socket.send('moo')
+  socket.disconnect()
+*/
+
+// Add a connect listener
+socket.on('connection', function(client){
+
+  console.log('Client has connected');
+
+	// Success!  Now listen to messages to be received
+	client.on('message',function(event){
+		console.log('Received message from client!',event);
+	});
+
+	client.on('disconnect',function(){
+		console.log('Client has disconnected');
+	});
+
+});
 
 /**
  * Listen on provided port, on all network interfaces.
