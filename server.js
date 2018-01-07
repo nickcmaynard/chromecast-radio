@@ -18,6 +18,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
+// And some static images
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 // Set our api routes
 app.use('/api', api);
 
@@ -46,7 +49,8 @@ const cast = new CastController('Beans\' Chromecast');
 cast.on('state', state => currentState = state);
 
 // XXX: Immediately start playing!!!
-cast.play();
+const stations = require('./server/stations.json');
+cast.play(stations[0]);
 
 /**
  * Attach WebSockets

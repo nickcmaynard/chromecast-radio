@@ -87,7 +87,7 @@ class CastController extends EventEmitter {
 
   }
 
-  play(radioStation) {
+  play(station) {
     // Wait until we have a connection!
     this.clientDeferred.promise.then(() => {
       this.client.launch(DefaultMediaReceiver, function(err, player) {
@@ -97,17 +97,18 @@ class CastController extends EventEmitter {
           // contentId: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4',
           // contentType: 'video/mp4',
           // streamType: 'BUFFERED', // or LIVE
-          contentId: 'http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_two.m3u8',
-          contentType: 'application/x-mpeg',
-          streamType: 'LIVE',
+          contentId: station.content,
+          contentType: station.contentType,
+          streamType: station.streamType || 'LIVE',
 
           // Title and cover displayed while buffering
           metadata: {
             type: 0,
             metadataType: 0,
-            title: "BBC Radio 2",
+            artist: station.group,
+            title: station.name,
             images: [
-              { url: 'https://ukrpimagecache.s3.amazonaws.com/image/342_86x48_2017-03-07-17-00-09-353.png' }
+              { url: station.image }
             ]
           }
         };
