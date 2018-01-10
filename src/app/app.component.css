@@ -1,0 +1,63 @@
+.app-component {
+  height: 100%;
+  width: 100%;
+}
+
+.actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+}
+
+.now-playing {
+  opacity: 0;
+  transition: opacity ease 2s;
+}
+
+.pane.playing .now-playing {
+  opacity: 1;
+}
+
+.programme-logo {
+  display: block;
+}
+
+.now-playing .programme-info, .now-playing .track-info {
+  padding: 10px;
+}
+
+.programme-info {
+  background-color: #303030;
+  color: white;
+}
+
+.swiper-slide {
+  height: 100%;
+}
+
+.station-logo {
+  position: absolute;
+
+  top: 50%;
+  transform: translateY(-50%);
+
+  right: 50px;
+  width: calc(100% - 100px);
+
+  transition: all ease-in-out 500ms;
+}
+
+.pane.playing .station-logo {
+  bottom: 10px;
+  top: auto;
+  transform: translateY(0);
+
+  right: 10px;
+  width: 33%;
+}
+
+.pane {
+  width: 100%;
+  box-sizing: border-box;
+}

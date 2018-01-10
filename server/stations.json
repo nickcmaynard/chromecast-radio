@@ -1,7 +1,43 @@
 [{
   "group": "BBC",
+  "name": "Radio 1",
+  "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_one.m3u8",
+  "contentType": "application/x-mpeg",
+  "image": "/assets/images/stations/BBC-Radio-1.png",
+  "nowPlaying": "https://np.radioplayer.co.uk/qp/v3/onair?rpIds=340&nameSize=200&artistNameSize=200&descriptionSize=200"
+},{
+  "group": "BBC",
   "name": "Radio 2",
   "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_two.m3u8",
   "contentType": "application/x-mpeg",
-  "image": "/images/stations/BBC-Radio-2.png"
+  "image": "/assets/images/stations/BBC-Radio-2.png",
+  "nowPlaying": "https://np.radioplayer.co.uk/qp/v3/onair?rpIds=342&nameSize=200&artistNameSize=200&descriptionSize=200"
+},{
+  "group": "BBC",
+  "name": "Radio 3",
+  "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_three.m3u8",
+  "contentType": "application/x-mpeg",
+  "image": "/assets/images/stations/BBC-Radio-3.png",
+  "nowPlaying": "https://np.radioplayer.co.uk/qp/v3/onair?rpIds=343&nameSize=200&artistNameSize=200&descriptionSize=200"
+},{
+  "group": "BBC",
+  "name": "Radio 4",
+  "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_fourfm.m3u8",
+  "contentType": "application/x-mpeg",
+  "image": "/assets/images/stations/BBC-Radio-4.png",
+  "nowPlaying": "https://np.radioplayer.co.uk/qp/v3/onair?rpIds=344&nameSize=200&artistNameSize=200&descriptionSize=200"
+},{
+  "group": "BBC",
+  "name": "Radio 5 Live",
+  "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_five_live.m3u8",
+  "contentType": "application/x-mpeg",
+  "image": "/assets/images/stations/BBC-Radio-5-Live.png",
+  "nowPlaying": "https://np.radioplayer.co.uk/qp/v3/onair?rpIds=345&nameSize=200&artistNameSize=200&descriptionSize=200"
+},{
+  "group": "BBC",
+  "name": "Radio 6 Music",
+  "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_6music.m3u8",
+  "contentType": "application/x-mpeg",
+  "image": "/assets/images/stations/BBC-Radio-6-Music.png",
+  "nowPlaying": "https://np.radioplayer.co.uk/qp/v3/onair?rpIds=347&nameSize=200&artistNameSize=200&descriptionSize=200"
 }]

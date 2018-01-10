@@ -5,6 +5,17 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const io = require('socket.io');
 const debug = require('debug')('Radio:Server');
+const jsonpClient = require('jsonp-client');
+function addCallback(url) {
+    // The URL already has a callback
+    if (url.match(/callback=[a-z]/i)) {
+        return url;
+    }
+    return url + ("&callback=cb" + Math.random()).replace('.', '');
+}
+
+// Get the stations
+const stations = require('./server/stations.json');
 
 // Get our API routes
 const api = require('./server/routes/api');
@@ -19,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // And some static images
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Set our api routes
 app.use('/api', api);
@@ -48,9 +59,47 @@ const CastController = require('./server/CastController');
 const cast = new CastController('Beans\' Chromecast');
 cast.on('state', state => currentState = state);
 
-// XXX: Immediately start playing!!!
-const stations = require('./server/stations.json');
-cast.play(stations[0]);
+const getActiveStation = state => {
+  return state.application == 'Default Media Receiver' && stations.find(station => station.name === (state && state.media && state.media.title));
+}
+
+// On air checks
+// TODO: Refactor this so it's intelligible
+let onairCheckInterval;
+const pollOnAir = (url, forceEmit) => {
+  debug("polling onair", url);
+  jsonpClient(addCallback(url), (error, data) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    const info = Object.values(data.results)[0];
+    // Programme info
+    const programme = info.find(i => i.type === 'PI');
+    (programme || forceEmit) && socket.emit('programme-info', { programme: programme });
+    // Track info
+    const track = info.find(i => i.type === 'PE_E');
+    (track || forceEmit) && socket.emit('track-info', { track: track });
+  });
+}
+const onAirCheck = state => {
+  debug("onAirCheck");
+  // Cancel any existing station onair polling
+  onairCheckInterval && clearInterval(onairCheckInterval);
+
+  const activeStation = getActiveStation(state) && (state.play === 'play');
+  if (activeStation) {
+    const check = (forceEmit) => {
+      // Run the check
+      if (!activeStation.nowPlaying) {
+        return;
+      }
+      pollOnAir(activeStation.nowPlaying, forceEmit);
+    };
+    onairCheckInterval = setInterval(check, 10000);
+    check(true);
+  }
+};
 
 /**
  * Attach WebSockets
@@ -62,8 +111,11 @@ var socket = io.listen(server);
 socket.on('connection', function(client){
 
   debug('Web client has connected');
+  onAirCheck(currentState);
+
   // Send whatever we have state-wise
-  socket.send(currentState);
+  client.emit('state', currentState);
+  client.emit('stations', stations);
 
 	// Success!  Now listen to messages to be received
 	client.on('message',function(event){
@@ -74,10 +126,22 @@ socket.on('connection', function(client){
 		debug('Web client has disconnected');
 	});
 
+  client.on('action-play', station => {
+    debug('action-play', station);
+    cast.play(station);
+
+    // TODO: don't futz
+    // futz with the onair checking
+    onairCheckInterval && clearInterval(onairCheckInterval);
+    pollOnAir(station.nowPlaying);
+  });
+
 });
 
 // Whenever our state changes, clients want to know
-cast.on('state', state => socket.send(state));
+cast.on('state', state => socket.emit('state', state));
+// New state, so reinit the on air checks
+cast.on('state', state => onAirCheck(state));
 
 /**
  * Listen on provided port, on all network interfaces.

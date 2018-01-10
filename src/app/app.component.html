@@ -1,7 +1,36 @@
-<app-navbar></app-navbar>
-<div class="container">
-    <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+<div class="app-component">
+  <!-- Swiper -->
+  <!-- disabled as it's not linking right -->
+  <!-- <swiper [config]="thumbConfig" #thumbSwiper class="thumbs">
+    <div *ngFor="let station of stations" class="pane">
+      <img src="{{station.image}}" height="50px">
     </div>
+  </swiper> -->
+  <swiper [config]="mainConfig" #mainSwiper class="main swiper">
+    <div *ngFor="let station of stations" class="pane" [ngClass]="{'playing': isActive(station)}">
+      <img class="station-logo" src="{{station.image}}" />
+      <div class="now-playing mat-typography">
+        <img *ngIf="programme && programme.imageUrl" src="{{ getImageUrl(programme.imageUrl) }}" width="100%" class="programme-logo">
+        <div class="programme-info">
+          <h2>{{ programme && programme.name || '...'}}</h2>
+          <p>{{ programme && programme.description || '...'}}</p>
+        </div>
+        <div class="track-info" *ngIf="track">
+          <h2>{{ track && track.artistName || '...'}}</h2>
+          <p>{{ track && track.name || '...'}}</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button mat-fab *ngIf="!(isPlaying(station))" (click)="play(station)">
+          <mat-icon svgIcon="play"></mat-icon>
+        </button>
+        <button mat-fab *ngIf="isPlaying(station)">
+          <mat-icon svgIcon="pause"></mat-icon>
+        </button>
+      </div>
+    </div>
+  </swiper>
+
+  <!-- Let's have a volume gauge -->
+  <!-- <mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider> -->
 </div>
