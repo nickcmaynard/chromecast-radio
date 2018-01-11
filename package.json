@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^5.0.0",
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
+    "Q": "^1.0.0",
     "body-parser": "^1.18.2",
     "bootstrap": "4.0.0-beta.2",
     "castv2-client": "^1.2.0",
