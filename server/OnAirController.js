@@ -1,8 +1,6 @@
 'use strict';
 
 const EventEmitter = require('events').EventEmitter;
-const Q = require('Q');
-const Promise = Q.Promise;
 
 const debug = require('debug')('Radio:OnAirController');
 
