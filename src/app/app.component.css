@@ -11,7 +11,7 @@
 }
 
 .now-playing {
-  opacity: 0;
+  opacity: 0.5;
   transition: opacity ease 2s;
 }
 
@@ -39,21 +39,9 @@
 .station-logo {
   position: absolute;
 
-  top: 50%;
-  transform: translateY(-50%);
-
-  right: 50px;
-  width: calc(100% - 100px);
-
-  transition: all ease-in-out 500ms;
-}
-
-.pane.playing .station-logo {
   bottom: 10px;
-  top: auto;
-  transform: translateY(0);
-
   right: 10px;
+
   width: 33%;
 }
 

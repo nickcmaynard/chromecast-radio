@@ -7,17 +7,17 @@
     </div>
   </swiper> -->
   <swiper [config]="mainConfig" #mainSwiper class="main swiper">
-    <div *ngFor="let station of stations" class="pane" [ngClass]="{'playing': isActive(station)}">
+    <div *ngFor="let station of stations" class="pane" [ngClass]="{'playing': isPlaying(station)}">
       <img class="station-logo" src="{{station.image}}" />
       <div class="now-playing mat-typography">
-        <img *ngIf="programme && programme.imageUrl" src="{{ getImageUrl(programme.imageUrl) }}" width="100%" class="programme-logo">
+        <img *ngIf="programmes[station.rpId] && programmes[station.rpId].imageUrl" src="{{ getImageUrl(programmes[station.rpId].imageUrl) }}" width="100%" class="programme-logo">
         <div class="programme-info">
-          <h2>{{ programme && programme.name || '...'}}</h2>
-          <p>{{ programme && programme.description || '...'}}</p>
+          <h2>{{ programmes[station.rpId] && programmes[station.rpId].name || '...'}}</h2>
+          <p>{{ programmes[station.rpId] && programmes[station.rpId].description || '...'}}</p>
         </div>
-        <div class="track-info" *ngIf="track">
-          <h2>{{ track && track.artistName || '...'}}</h2>
-          <p>{{ track && track.name || '...'}}</p>
+        <div class="track-info" *ngIf="tracks[station.rpId]">
+          <h2>{{ tracks[station.rpId] && tracks[station.rpId].artistName || '...'}}</h2>
+          <p>{{ tracks[station.rpId] && tracks[station.rpId].name || '...'}}</p>
         </div>
       </div>
       <div class="actions">

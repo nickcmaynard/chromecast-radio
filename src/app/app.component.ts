@@ -18,8 +18,8 @@ export class AppComponent {
 
   state: any
   stations: any
-  programme: any
-  track: any
+  programmes: any
+  tracks: any
 
   public mainConfig: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -31,20 +31,27 @@ export class AppComponent {
 
   constructor(private commService: CommService) {
     this.title = 'Beans\' Radio';
+    this.programmes = {};
+    this.tracks = {};
   }
 
   ngOnInit() {
     this.commService.getState().subscribe(state => this.state = state);
     this.commService.getStations().subscribe(stations => this.stations = stations);
-    this.commService.getProgrammeInfo().subscribe(info => { this.programme = info && info.programme });
-    this.commService.getTrackInfo().subscribe(info => this.track = info && info.track);
+    this.commService.getProgrammeInfo().subscribe((info: any) => this.programmes[info.station.rpId] = info.programme);
+    this.commService.getTrackInfo().subscribe((info: any) => this.tracks[info.station.rpId] = info.track);
   }
 
   getActiveStation() {
+    const index = this.getActiveStationIndex();
+    return index !== undefined ? this.stations[index] : undefined;
+  }
+
+  getActiveStationIndex() {
     return this.state
         && this.state.application == 'Default Media Receiver'
         && this.stations
-        && this.stations.find(station => station.name === (this.state && this.state.media && this.state.media.title));
+        && this.stations.findIndex(station => station.name === (this.state && this.state.media && this.state.media.title));
   }
 
   getImageUrl(url) {
@@ -71,5 +78,15 @@ export class AppComponent {
   }
 
   @ViewChild("mainSwiper") mainSwiperRef: SwiperComponent;
+
+  ngAfterViewInit()	{
+    let slideReset;
+    this.mainSwiperRef.directiveRef.swiper().on('slideChange', () => {
+      slideReset && clearTimeout(slideReset);
+      slideReset = setTimeout(() => {
+        this.mainSwiperRef.directiveRef.setIndex(this.getActiveStationIndex());
+      }, 5000)
+    })
+  }
 
 }
