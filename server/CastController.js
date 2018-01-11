@@ -13,7 +13,7 @@ I care about the following events:
 */
 
 const EventEmitter = require('events').EventEmitter;
-const Q = require('Q');
+const Q = require('q');
 const Promise = Q.Promise;
 const Client                = require('castv2-client').Client;
 const DefaultMediaReceiver  = require('castv2-client').DefaultMediaReceiver;
