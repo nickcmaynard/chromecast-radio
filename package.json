@@ -8,7 +8,6 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
     "start": "node server"
   },
   "private": true,
@@ -28,6 +27,7 @@
     "bootstrap": "4.0.0-beta.2",
     "castv2-client": "^1.2.0",
     "castv2-device-monitor": "^1.2.4",
+    "config": "^1.29.1",
     "core-js": "^2.4.1",
     "debug": "^3.1.0",
     "dotenv": "^4.0.0",

@@ -1,9 +1,5 @@
 # Chromecast Radio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
-
-Adjusted according to https://medium.com/codingthesmartway-com-blog/building-an-angular-5-project-with-bootstrap-4-and-firebase-4504ff7717c1
-
 ## Setup
 
 Copy `.env.example` to `.env`, and edit for your environment.
@@ -26,3 +22,18 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 npm run build
 npm run start
 ```
+
+## Notes
+
+### Station configuration
+Station configuration is via `config/default.json`.  
+
+Useful links for extending this:
+* A radio player ID from http://www.radioplayer.co.uk.
+* A stream URL (perhaps) from http://forums.linn.co.uk/bb/showthread.php?tid=29518&pid=348776#pid348776.
+
+### Code state
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
+
+Adjusted according to https://medium.com/codingthesmartway-com-blog/building-an-angular-5-project-with-bootstrap-4-and-firebase-4504ff7717c1

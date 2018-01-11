@@ -1,0 +1,52 @@
+{
+  "stations": [{
+    "group": "BBC",
+    "name": "Radio 1",
+    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_one.m3u8",
+    "contentType": "application/x-mpeg",
+    "image": "/assets/images/stations/BBC-Radio-1.png",
+    "rpId": 340
+  }, {
+    "group": "BBC",
+    "name": "Radio 2",
+    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_two.m3u8",
+    "contentType": "application/x-mpeg",
+    "image": "/assets/images/stations/BBC-Radio-2.png",
+    "rpId": 342
+  }, {
+    "group": "BBC",
+    "name": "Radio 3",
+    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_three.m3u8",
+    "contentType": "application/x-mpeg",
+    "image": "/assets/images/stations/BBC-Radio-3.png",
+    "rpId": 343
+  }, {
+    "group": "BBC",
+    "name": "Radio 4",
+    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_fourfm.m3u8",
+    "contentType": "application/x-mpeg",
+    "image": "/assets/images/stations/BBC-Radio-4.png",
+    "rpId": 344
+  }, {
+    "group": "BBC",
+    "name": "Radio 5 Live",
+    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_five_live.m3u8",
+    "contentType": "application/x-mpeg",
+    "image": "/assets/images/stations/BBC-Radio-5-Live.png",
+    "rpId": 345
+  }, {
+    "group": "BBC",
+    "name": "Radio 6 Music",
+    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_6music.m3u8",
+    "contentType": "application/x-mpeg",
+    "image": "/assets/images/stations/BBC-Radio-6-Music.png",
+    "rpId": 347
+  }, {
+    "group": "BBC",
+    "name": "Radio Solent",
+    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_solent.m3u8",
+    "contentType": "application/x-mpeg",
+    "image": "https://ichef.bbci.co.uk/images/ic/640x360/p01w4zvh.jpg",
+    "rpId": 329
+  }]
+}

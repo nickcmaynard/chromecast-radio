@@ -7,14 +7,17 @@ const io = require('socket.io');
 const debug = require('debug')('Radio:Server');
 
 // Config
-require('dotenv').config()
+require('dotenv').config();
+const config = require('config');
 
 // Basic server initiation
 const app = express();
 
 // Parsers for POST data
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -23,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Get the stations
-const stations = require('./server/stations.json');
+const stations = config.stations;
 
 /**
  * Get port from environment and store in Express.
@@ -59,7 +62,7 @@ onair.monitorOccasional(stations.map(station => station.rpId).filter(id => !!id)
 var socket = io.listen(server);
 
 // Add a connect listener
-socket.on('connection', function(client){
+socket.on('connection', function(client) {
 
   debug('Web client has connected');
 
@@ -70,14 +73,14 @@ socket.on('connection', function(client){
   client.emit('state', currentState);
   client.emit('stations', stations);
 
-	// Success!  Now listen to messages to be received
-	client.on('message',function(event){
-		debug('Received message from web client!',event);
-	});
+  // Success!  Now listen to messages to be received
+  client.on('message', function(event) {
+    debug('Received message from web client!', event);
+  });
 
-	client.on('disconnect',function(){
-		debug('Web client has disconnected');
-	});
+  client.on('disconnect', function() {
+    debug('Web client has disconnected');
+  });
 
   client.on('action-play', station => {
     debug('action-play', station);
@@ -96,7 +99,10 @@ onair.on('programme-info', data => {
   if (!station) {
     return;
   }
-  socket.emit('programme-info', { station: station, programme: data.programme });
+  socket.emit('programme-info', {
+    station: station,
+    programme: data.programme
+  });
 });
 onair.on('track-info', data => {
   // Find the associated station
@@ -104,7 +110,10 @@ onair.on('track-info', data => {
   if (!station) {
     return;
   }
-  socket.emit('track-info', { station: station, track: data.track });
+  socket.emit('track-info', {
+    station: station,
+    track: data.track
+  });
 });
 
 // Whenever our state changes, clients want to know
