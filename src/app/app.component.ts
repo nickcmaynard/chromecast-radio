@@ -36,8 +36,8 @@ export class AppComponent {
   ngOnInit() {
     this.commService.getState().subscribe(state => this.state = state);
     this.commService.getStations().subscribe(stations => this.stations = stations);
-    this.commService.getProgrammeInfo().subscribe(info => this.programme = info.programme);
-    this.commService.getTrackInfo().subscribe(info => this.track = info.track);
+    this.commService.getProgrammeInfo().subscribe(info => { this.programme = info && info.programme });
+    this.commService.getTrackInfo().subscribe(info => this.track = info && info.track);
   }
 
   getActiveStation() {
@@ -66,7 +66,7 @@ export class AppComponent {
     return this.isActive(station) && this.state.play === 'play';
   }
 
-  play(private station: object) {
+  play(station) {
     this.commService.action('play', station);
   }
 
