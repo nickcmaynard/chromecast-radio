@@ -11,21 +11,14 @@ I care about the following events:
   powerState
 
 */
-
 const EventEmitter = require('events').EventEmitter;
 const Q = require('q');
 const Promise = Q.Promise;
 const Client                = require('castv2-client').Client;
 const DefaultMediaReceiver  = require('castv2-client').DefaultMediaReceiver;
-const mdns                  = require('mdns');
-// Fixes 3008 addr error on IPv6 Linux systems https://github.com/agnat/node_mdns/issues/130
-// We do it at this global level because otherwise we can't affect our dependencies
-mdns.Browser.defaultResolverSequence[1] = 'DNSServiceGetAddrInfo' in mdns.dns_sd ? mdns.rst.DNSServiceGetAddrInfo() : mdns.rst.getaddrinfo({families:[4]});
-
-// TODO use mdns-js
+const mdns                  = require('mdns-js');
 
 const debug = require('debug')('Radio:CastController');
-
 
 class CastController extends EventEmitter {
 
@@ -55,15 +48,22 @@ class CastController extends EventEmitter {
 
     // Maintain a connection for our own purposes
     let browser = mdns.createBrowser(mdns.tcp('googlecast'));
+    browser.on('ready', function() {
+      browser.discover()
+    });
 
     // Listen to all chromecasts coming online
-    browser.on('serviceUp', service => {
-      debug('found device "%s" at %s:%d', service.name, service.addresses[0], service.port);
-      if (service.type.name === 'googlecast' &&
-          service.txtRecord &&
-          service.txtRecord.fn &&
-          service.txtRecord.fn === this.target) {
+    browser.on('update', service => {
+      // Deserialise the x=y service.txt into a map - fallback {}
+      const txtRecord = service.txt ? service.txt.reduce((acc, cur, i) => {
+        const arr = cur.match('^(.*?)=(.*)$');
+        acc[arr[1]] = arr[2];
+        return acc;
+      }, {}) : {};
+      debug('found device "%s" at %s:%d', txtRecord.fn, service.addresses[0], service.port);
 
+      if (service.type[0].name === 'googlecast' &&
+          txtRecord.fn === this.target) {
         // It's the chromecast device we care about...
         const clientIp = service.addresses[0];
         if (!this.client || clientIp !== this.clientIp) {
@@ -88,7 +88,6 @@ class CastController extends EventEmitter {
         }
       }
     });
-    browser.start();
 
   }
 
