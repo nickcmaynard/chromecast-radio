@@ -9,12 +9,6 @@ npm install
 npm install -g nodemon # Development only
 ```
 
-### Required libraries
-The NodeJS package mdns has some prereqs, meaning `npm install` may fail if they're not installed, complaining about a missing file `dns_sd.h`.
-
-Run this and retry:
-`sudo apt install libavahi-compat-libdnssd-dev`
-
 ## Development server
 
 Run `DEBUG=Radio:* nodemon server` to start up the backend on `http://localhost:3000/`.
