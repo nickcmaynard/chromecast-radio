@@ -18,9 +18,11 @@ const Promise = Q.Promise;
 const Client                = require('castv2-client').Client;
 const DefaultMediaReceiver  = require('castv2-client').DefaultMediaReceiver;
 const mdns                  = require('mdns');
-// Fixes 3008 addr error on IPv6 systems https://github.com/agnat/node_mdns/issues/130
+// Fixes 3008 addr error on IPv6 Linux systems https://github.com/agnat/node_mdns/issues/130
 // We do it at this global level because otherwise we can't affect our dependencies
 mdns.Browser.defaultResolverSequence[1] = 'DNSServiceGetAddrInfo' in mdns.dns_sd ? mdns.rst.DNSServiceGetAddrInfo() : mdns.rst.getaddrinfo({families:[4]});
+
+// TODO use mdns-js
 
 const debug = require('debug')('Radio:CastController');
 

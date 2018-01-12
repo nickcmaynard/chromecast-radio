@@ -30,7 +30,7 @@ class OnAirController extends EventEmitter {
    * More frequest monitoring of stations
    */
   monitorFrequent(rpIds) {
-    return this.monitor(rpIds, 5000, 'frequentInterval');
+    return this.monitor(rpIds, 15000, 'frequentInterval');
   }
 
   monitor(rpIds, frequencyMs, intervalVarName) {

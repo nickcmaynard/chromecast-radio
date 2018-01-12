@@ -64,9 +64,9 @@ export class AppComponent {
   getProgrammeDescription(programme) {
     let colonIdx = programme.name.indexOf(" : ");
     if (colonIdx !== -1) {
-      return programme.name.substring(colonIdx + 3) + "<br /><br />" + programme.description;
+      return `<p>${programme.name.substring(colonIdx + 3)}</p><p>${programme.description}</p>`;
     } else {
-      return programme.description;
+      return `<p>${programme.description}</p>`;
     }
   }
 

@@ -13,7 +13,7 @@
         <img *ngIf="programmes[station.rpId] && programmes[station.rpId].imageUrl" src="{{ getImageUrl(programmes[station.rpId].imageUrl) }}" width="100%" class="programme-logo">
         <div class="programme-info">
           <h2>{{ programmes[station.rpId] && getProgrammeTitle(programmes[station.rpId]) || '...'}}</h2>
-          <p [innerHTML]="programmes[station.rpId] && getProgrammeDescription(programmes[station.rpId]) || '...'"></p>
+          <div [innerHTML]="programmes[station.rpId] && getProgrammeDescription(programmes[station.rpId]) || '...'"></div>
         </div>
         <div class="track-info" *ngIf="tracks[station.rpId]">
           <h2>{{ tracks[station.rpId] && tracks[station.rpId].artistName || '...'}}</h2>
