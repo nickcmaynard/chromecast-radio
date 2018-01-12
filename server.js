@@ -10,6 +10,11 @@ const debug = require('debug')('Radio:Server');
 require('dotenv').config();
 const config = require('config');
 
+if (!process.env.CC_NAME) {
+  console.error("CC_NAME env variable undefined, see README config section");
+  process.exit(128);
+}
+
 // Basic server initiation
 const app = express();
 
