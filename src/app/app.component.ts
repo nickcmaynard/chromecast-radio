@@ -101,7 +101,7 @@ export class AppComponent {
       slideReset && clearTimeout(slideReset);
       slideReset = setTimeout(() => {
         this.mainSwiperRef.directiveRef.setIndex(this.getActiveStationIndex());
-      }, 5000)
+      }, 10000)
     })
   }
 
