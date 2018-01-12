@@ -54,6 +54,22 @@ export class AppComponent {
         && this.stations.findIndex(station => station.name === (this.state && this.state.media && this.state.media.title));
   }
 
+  getProgrammeTitle(programme) {
+    let colonIdx = programme.name.indexOf(" : ");
+    if (colonIdx !== -1) {
+      return programme.name.substring(0, colonIdx);
+    }
+  }
+
+  getProgrammeDescription(programme) {
+    let colonIdx = programme.name.indexOf(" : ");
+    if (colonIdx !== -1) {
+      return programme.name.substring(colonIdx + 3) + "<br /><br />" + programme.description;
+    } else {
+      return programme.description;
+    }
+  }
+
   getImageUrl(url) {
     // Enhance ichef urls
     const re = new RegExp('^https?:\/\/ichef\.bbci\.co\.uk\/images\/ic\/(\\d+x\\d+)\/(.+)$');
