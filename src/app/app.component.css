@@ -28,8 +28,13 @@
 }
 
 .programme-info {
-  background-color: #303030;
+  background-color: #383f48;
   color: white;
+}
+
+.programme-description {
+  font-size: smaller;
+  color: #999;
 }
 
 .swiper-slide {
@@ -38,10 +43,8 @@
 
 .station-logo {
   position: absolute;
-
   bottom: 10px;
   right: 10px;
-
   width: 33%;
 }
 

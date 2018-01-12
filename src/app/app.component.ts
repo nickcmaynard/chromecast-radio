@@ -57,16 +57,9 @@ export class AppComponent {
   getProgrammeTitle(programme) {
     let colonIdx = programme.name.indexOf(" : ");
     if (colonIdx !== -1) {
-      return programme.name.substring(0, colonIdx);
-    }
-  }
-
-  getProgrammeDescription(programme) {
-    let colonIdx = programme.name.indexOf(" : ");
-    if (colonIdx !== -1) {
-      return `<p>${programme.name.substring(colonIdx + 3)}</p><p>${programme.description}</p>`;
+      return `<h2>${programme.name.substring(0, colonIdx)}</h2><h3>${programme.name.substring(colonIdx + 3)}</h3>`;
     } else {
-      return `<p>${programme.description}</p>`;
+      return `<h2>${programme.name}</h2>`;
     }
   }
 
