@@ -44,7 +44,7 @@ export class AppComponent {
 
   onNewState(state) {
     this.state = state;
-    if (this.getActiveStation()) {
+    if (this.getActiveStation() && state.play === 'play') {
       this.mainSwiperRef.directiveRef.setIndex(this.getActiveStationIndex());
     }
   }
