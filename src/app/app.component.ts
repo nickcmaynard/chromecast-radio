@@ -36,7 +36,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.commService.getState().subscribe(state => this.state = state);
+    this.commService.getState().subscribe(this.onNewState.bind(this));
     this.commService.getStations().subscribe(stations => this.stations = stations);
     this.commService.getProgrammeInfo().subscribe((info: any) => this.programmes[info.station.rpId] = info.programme);
     this.commService.getTrackInfo().subscribe((info: any) => this.tracks[info.station.rpId] = info.track);
@@ -51,14 +51,15 @@ export class AppComponent {
 
   getActiveStation() {
     const index = this.getActiveStationIndex();
-    return index !== -1 ? this.stations[index] : undefined;
+    return (this.stations && index !== -1) ? this.stations[index] : undefined;
   }
 
   getActiveStationIndex() {
-    return this.state
-        && this.state.application == 'Default Media Receiver'
-        && this.stations
-        && this.stations.findIndex(station => station.name === (this.state && this.state.media && this.state.media.title));
+    if (this.state && this.state.application == 'Default Media Receiver' && this.stations) {
+      return this.stations.findIndex(station => station.name === (this.state && this.state.media && this.state.media.title));
+    } else {
+      return -1;
+    }
   }
 
   getProgrammeTitle(programme) {
@@ -95,7 +96,7 @@ export class AppComponent {
 
   @ViewChild("mainSwiper") mainSwiperRef: SwiperComponent;
 
-  ngAfterViewInit()	{
+  ngAfterViewInit() {
     let slideReset;
     this.mainSwiperRef.directiveRef.swiper().on('slideChange', () => {
       slideReset && clearTimeout(slideReset);
