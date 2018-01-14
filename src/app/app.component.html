@@ -16,8 +16,8 @@
           <p class="programme-description">{{ programmes[station.rpId] && programmes[station.rpId].description || '...' }}</p>
         </div>
         <div class="track-info" *ngIf="tracks[station.rpId]">
-          <h2>{{ tracks[station.rpId] && tracks[station.rpId].artistName || '...'}}</h2>
-          <p>{{ tracks[station.rpId] && tracks[station.rpId].name || '...'}}</p>
+          <h1>{{ tracks[station.rpId] && tracks[station.rpId].artistName || '...'}}</h1>
+          <h2>{{ tracks[station.rpId] && tracks[station.rpId].name || '...'}}</h2>
         </div>
       </div>
       <div class="actions">
