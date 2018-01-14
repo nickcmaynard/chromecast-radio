@@ -42,9 +42,16 @@ export class AppComponent {
     this.commService.getTrackInfo().subscribe((info: any) => this.tracks[info.station.rpId] = info.track);
   }
 
+  onNewState(state) {
+    this.state = state;
+    if (this.getActiveStation()) {
+      this.mainSwiperRef.directiveRef.setIndex(this.getActiveStationIndex());
+    }
+  }
+
   getActiveStation() {
     const index = this.getActiveStationIndex();
-    return index !== undefined ? this.stations[index] : undefined;
+    return index !== -1 ? this.stations[index] : undefined;
   }
 
   getActiveStationIndex() {
