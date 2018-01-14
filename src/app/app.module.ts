@@ -5,7 +5,6 @@ import { MatButtonModule, MatCardModule, MatIconModule, MatSliderModule, MatIcon
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { AppNavbarComponent } from './app-navbar/app-navbar.component';
 
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
@@ -22,8 +21,7 @@ const config: SocketIoConfig = { url: "" };
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AppNavbarComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
