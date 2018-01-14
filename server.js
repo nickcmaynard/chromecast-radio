@@ -74,9 +74,11 @@ socket.on('connection', function(client) {
   // Reset the occasional monitor - get the latest information now
   onair.monitorOccasional(stations.map(station => station.rpId).filter(id => !!id));
 
+  // Send station information *first*
+  client.emit('stations', stations);
+
   // Send whatever we have state-wise
   client.emit('state', currentState);
-  client.emit('stations', stations);
 
   // Success!  Now listen to messages to be received
   client.on('message', function(event) {
