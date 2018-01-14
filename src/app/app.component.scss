@@ -52,3 +52,9 @@
   width: 100%;
   box-sizing: border-box;
 }
+
+.programme-info, .track-info {
+  /deep/ h1, /deep/ h2, /deep/ h3 {
+    margin-bottom: 8px;
+  }
+}
