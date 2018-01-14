@@ -49,15 +49,18 @@ class CastController extends EventEmitter {
     // Maintain a connection for our own purposes
     let browser = mdns.createBrowser(mdns.tcp('googlecast'));
     browser.on('ready', function() {
+      debug('browser ready');
       browser.discover()
     });
 
     // Listen to all chromecasts coming online
     browser.on('update', service => {
+      debug('browser update');
+
       // Deserialise the x=y service.txt into a map - fallback {}
       const txtRecord = service.txt ? service.txt.reduce((acc, cur, i) => {
         const arr = cur.match('^(.*?)=(.*)$');
-        acc[arr[1]] = arr[2];
+        arr && (acc[arr[1]] = arr[2]);
         return acc;
       }, {}) : {};
       debug('found device "%s" at %s:%d', txtRecord.fn, service.addresses[0], service.port);
