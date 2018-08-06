@@ -94,6 +94,10 @@ export class AppComponent {
     this.commService.action('play', station);
   }
 
+  pause() {
+    this.commService.action('pause');
+  }
+
   @ViewChild("mainSwiper") mainSwiperRef: SwiperComponent;
 
   ngAfterViewInit() {

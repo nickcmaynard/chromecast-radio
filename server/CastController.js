@@ -3,6 +3,7 @@
 /*
 Accept the following commands:
   play(radioStation)
+  pause()
 
 I care about the following events:
   applicationChange
@@ -34,17 +35,17 @@ class CastController extends EventEmitter {
     const DeviceMonitor = require('castv2-device-monitor').DeviceMonitor;
 
     // Monitor the chromecast's macro state
-    let dm = new DeviceMonitor(target);
+    this.dm = new DeviceMonitor(target);
     const update = (name, state) => {
       this.state[name] = state;
       this.emit(name + '-state', state);
       this.emit('state', this.state);
       debug(this.state);
     };
-    dm.on('powerState', state => update('power', state) );
-    dm.on('playState', state => update('play', state) );
-    dm.on('application', state => update('application', state) );
-    dm.on('media', state => update('media', state) );
+    this.dm.on('powerState', state => update('power', state) );
+    this.dm.on('playState', state => update('play', state) );
+    this.dm.on('application', state => update('application', state) );
+    this.dm.on('media', state => update('media', state) );
 
     // Maintain a connection for our own purposes
     let browser = mdns.createBrowser(mdns.tcp('googlecast'));
@@ -63,7 +64,7 @@ class CastController extends EventEmitter {
         arr && (acc[arr[1]] = arr[2]);
         return acc;
       }, {}) : {};
-      debug('found device "%s" at %s:%d', txtRecord.fn, service.addresses[0], service.port);
+      debug('found device "%s" (%s) at %s:%d', txtRecord.fn, service.type[0].name, service.addresses[0], service.port);
 
       if (service.type[0].name === 'googlecast' &&
           txtRecord.fn === this.target) {
@@ -73,7 +74,8 @@ class CastController extends EventEmitter {
           // If we've lost the connection completely (thus client is missing), or the IP has changed
           this.clientIp = clientIp;
           if (this.client) {
-              debug('Destroying clientConnection to replace with new')
+              debug('Destroying clientConnection to replace with new');
+              this.statusInterval && clearInterval(this.statusInterval);
               this.client.close();
               delete this.client;
               this.clientDeferred = Q.defer();
@@ -88,50 +90,65 @@ class CastController extends EventEmitter {
             delete this.client;
             this.clientDeferred = Q.defer();
           });
+
         }
       }
     });
 
   }
 
+  pause() {
+    debug('pause');
+    this.dm.pauseDevice();
+  }
+
   play(station) {
-    // Wait until we have a connection!
-    this.clientDeferred.promise.then(() => {
-      this.client.launch(DefaultMediaReceiver, function(err, player) {
-        var media = {
+    debug('play', station);
+    if (this.state.play === 'pause' && this.state.media.artist === station.group && this.state.media.title === station.name) {
+      debug('device is paused on correct station, resuming');
+      this.dm.playDevice();
+    } else {
+      debug('starting new media receiver for new station');
+      // Wait until we have a connection!
+      this.clientDeferred.promise.then(() => {
+        this.client.launch(DefaultMediaReceiver, (err, player) => {
+          this.player = player;
 
-        	// Here you can plug an URL to any mp4, webm, mp3 or jpg file with the proper contentType.
-          // contentId: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4',
-          // contentType: 'video/mp4',
-          // streamType: 'BUFFERED', // or LIVE
-          contentId: station.content,
-          contentType: station.contentType,
-          streamType: station.streamType || 'LIVE',
+          var media = {
 
-          // Title and cover displayed while buffering
-          metadata: {
-            type: 0,
-            metadataType: 0,
-            artist: station.group,
-            title: station.name,
-            images: [
-              { url: station.image }
-            ]
-          }
-        };
+          	// Here you can plug an URL to any mp4, webm, mp3 or jpg file with the proper contentType.
+            // contentId: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4',
+            // contentType: 'video/mp4',
+            // streamType: 'BUFFERED', // or LIVE
+            contentId: station.content,
+            contentType: station.contentType,
+            streamType: station.streamType || 'LIVE',
 
-        player.on('status', function(status) {
-          debug('status broadcast playerState=%s', status.playerState);
+            // Title and cover displayed while buffering
+            metadata: {
+              type: 0,
+              metadataType: 0,
+              artist: station.group,
+              title: station.name,
+              images: [
+                { url: station.image }
+              ]
+            }
+          };
+
+          player.on('status', function(status) {
+            debug('status broadcast playerState=%s', status.playerState);
+          });
+
+          debug('app "%s" launched, loading media %s ...', player.session.displayName, media.contentId);
+
+          player.load(media, { autoplay: true }, function(err, status) {
+            debug('media loaded playerState=%s', status.playerState);
+          });
+
         });
-
-        debug('app "%s" launched, loading media %s ...', player.session.displayName, media.contentId);
-
-        player.load(media, { autoplay: true }, function(err, status) {
-          debug('media loaded playerState=%s', status.playerState);
-        });
-
       });
-    })
+    }
   }
 
 };

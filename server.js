@@ -97,6 +97,14 @@ socket.on('connection', function(client) {
     onair.monitorFrequent([station.rpId]);
   });
 
+  client.on('action-pause', args => {
+    debug('action-pause');
+    cast.pause();
+
+    // We're not playing any stations - stop frequently polling
+    onair.monitorFrequent([]);
+  });
+
 });
 
 // Whenever programme or track information changes, clients want to know
