@@ -87,7 +87,7 @@ export class AppComponent {
   }
 
   isPlaying(station) {
-    return this.isActive(station) && this.state.play === 'play';
+    return this.isActive(station) && this.state.play === 'play' && this.state.power === 'on';
   }
 
   play(station) {
