@@ -95,7 +95,7 @@ export class AppComponent {
   }
 
   pause() {
-    this.commService.action('pause');
+    this.commService.action('pause', null);
   }
 
   @ViewChild("mainSwiper") mainSwiperRef: SwiperComponent;
