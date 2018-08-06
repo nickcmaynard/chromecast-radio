@@ -12,7 +12,7 @@ npm install -g nodemon # Development only
 ## Development server
 
 Run `DEBUG=Radio:* nodemon server` to start up the backend on `http://localhost:3000/`.
-Run `ng serve` to run the frontend dev server.  This will proxy backend requests to the backend.
+Run `npm run dev-frontend` to run the frontend dev server.  This will proxy backend requests to the backend.
 
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
