@@ -75,7 +75,6 @@ class CastController extends EventEmitter {
           this.clientIp = clientIp;
           if (this.client) {
               debug('Destroying clientConnection to replace with new');
-              this.statusInterval && clearInterval(this.statusInterval);
               this.client.close();
               delete this.client;
               this.clientDeferred = Q.defer();
