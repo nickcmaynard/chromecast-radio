@@ -14,6 +14,8 @@ import {
 })
 export class AppComponent {
 
+  @ViewChild('mainSwiper') mainSwiperRef: SwiperComponent;
+
   title: string
 
   state: any
@@ -63,7 +65,7 @@ export class AppComponent {
   }
 
   getProgrammeTitle(programme) {
-    let colonIdx = programme.name.indexOf(" : ");
+    let colonIdx = programme.name.indexOf(' : ');
     if (colonIdx !== -1) {
       return `<h2>${programme.name.substring(0, colonIdx)}</h2><h3>${programme.name.substring(colonIdx + 3)}</h3>`;
     } else {
@@ -97,8 +99,6 @@ export class AppComponent {
   pause() {
     this.commService.action('pause', null);
   }
-
-  @ViewChild("mainSwiper") mainSwiperRef: SwiperComponent;
 
   ngAfterViewInit() {
     let slideReset;

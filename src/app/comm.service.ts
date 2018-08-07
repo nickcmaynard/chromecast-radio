@@ -7,27 +7,27 @@ export class CommService {
   constructor(private socket: Socket) { }
 
   sendMessage(msg: string) {
-    this.socket.emit("message", msg);
+    this.socket.emit('message', msg);
   }
 
   getStations() {
     return this.socket
-      .fromEvent("stations");
+      .fromEvent('stations');
   }
 
   getState() {
     return this.socket
-      .fromEvent("state");
+      .fromEvent('state');
   }
 
   getProgrammeInfo() {
     return this.socket
-      .fromEvent("programme-info");
+      .fromEvent('programme-info');
   }
 
   getTrackInfo() {
     return this.socket
-      .fromEvent("track-info");
+      .fromEvent('track-info');
   }
 
   action(type, args) {
