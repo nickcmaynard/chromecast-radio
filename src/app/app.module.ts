@@ -17,7 +17,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 };
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-const config: SocketIoConfig = { url: "" };
+const config: SocketIoConfig = { url: '' };
 
 @NgModule({
   declarations: [
@@ -41,7 +41,8 @@ const config: SocketIoConfig = { url: "" };
   ]
 })
 export class AppModule {
-  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
-    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    // Register material icons
+    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg'));
   }
 }

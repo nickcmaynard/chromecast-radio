@@ -12,16 +12,16 @@ import {
   styleUrls: ['./app.component.scss'],
   providers: [CommService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
 
   @ViewChild('mainSwiper') mainSwiperRef: SwiperComponent;
 
-  title: string
+  title: string;
 
-  state: any
-  stations: any
-  programmes: any
-  tracks: any
+  state: any;
+  stations: any;
+  programmes: any;
+  tracks: any;
 
   public mainConfig: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -57,7 +57,7 @@ export class AppComponent {
   }
 
   getActiveStationIndex() {
-    if (this.state && this.state.application == 'Default Media Receiver' && this.stations) {
+    if (this.state && this.state.application === 'Default Media Receiver' && this.stations) {
       return this.stations.findIndex(station => station.name === (this.state && this.state.media && this.state.media.title));
     } else {
       return -1;
@@ -65,7 +65,7 @@ export class AppComponent {
   }
 
   getProgrammeTitle(programme) {
-    let colonIdx = programme.name.indexOf(' : ');
+    const colonIdx = programme.name.indexOf(' : ');
     if (colonIdx !== -1) {
       return `<h2>${programme.name.substring(0, colonIdx)}</h2><h3>${programme.name.substring(colonIdx + 3)}</h3>`;
     } else {
@@ -103,11 +103,13 @@ export class AppComponent {
   ngAfterViewInit() {
     let slideReset;
     this.mainSwiperRef.directiveRef.swiper().on('slideChange', () => {
-      slideReset && clearTimeout(slideReset);
+      if (slideReset) {
+        clearTimeout(slideReset);
+      }
       slideReset = setTimeout(() => {
         this.mainSwiperRef.directiveRef.setIndex(this.getActiveStationIndex());
-      }, 10000)
-    })
+      }, 10000);
+    });
   }
 
 }
