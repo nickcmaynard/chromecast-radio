@@ -6,6 +6,10 @@
     "ng": "ng",
     "dev-frontend": "ng serve --proxy-config proxy.conf.json --verbose",
     "build": "ng build --prod",
+    "//": "postbuild is run automatically after ng build",
+    "postbuild": "dotenv npm run replace-dist-title",
+    "//": "replace the WEBAPP_TITLE with that in .env",
+    "replace-dist-title": "replace 'WEBAPP_TITLE' \"${WEBAPP_TITLE:-WEBAPP_TITLE}\" dist/index.html",
     "test": "ng test",
     "lint": "ng lint",
     "start": "node server"
@@ -49,6 +53,7 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^6.0.96",
     "codelyzer": "^4.0.1",
+    "dotenv-cli": "^1.4.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
@@ -59,6 +64,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "node-sass": "^4.7.2",
     "protractor": "~5.1.2",
+    "replace": "^1.0.0",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.4.2"
