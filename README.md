@@ -25,7 +25,7 @@ npm run start
 
 To run at startup via crontab:
 ```
-@reboot cd ~/cc-radio ; /usr/bin/forever start -c /usr/bin/node server.js
+@reboot cd ~/chromecast-radio ; /usr/bin/forever start -c /usr/bin/node server.js
 ```
 
 ## Notes
