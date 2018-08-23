@@ -1,12 +1,8 @@
 <div class="app-component">
-  <!-- Swiper -->
-  <!-- disabled as it's not linking right -->
-  <!-- <swiper [config]="thumbConfig" #thumbSwiper class="thumbs">
-    <div *ngFor="let station of stations" class="pane">
-      <img src="{{station.image}}" height="50px">
-    </div>
-  </swiper> -->
+
   <swiper [config]="mainConfig" #mainSwiper class="main swiper">
+
+    <!-- Show info for radio stations -->
     <div *ngFor="let station of stations" class="pane" [ngClass]="{'playing': isPlaying(station)}">
       <img class="station-logo" src="{{station.image}}" />
       <div class="now-playing mat-typography">
@@ -29,6 +25,24 @@
         </button>
       </div>
     </div>
+
+    <!-- Show info for random media that's playing -->
+    <div class="pane" [ngClass]="{'playing': isPlayingAlbum()}">
+      <div class="now-playing mat-typography">
+        <div class="album">
+          <img *ngIf="state && state.media && state.media.images && state.media.images.length > 0" src="{{ state.media.images[0].url }}" class="programme-logo">
+          <div class="programme-info">
+            <h2>{{ state && state.media && state.media.albumName || '...' }}</h2>
+            <h3>{{ state && state.media && state.media.albumArtist || '...' }}</h3>
+          </div>
+        </div>
+        <div class="track-info">
+          <h1>{{ state && state.media && state.media.title || '...' }}</h1>
+          <h2>{{ state && state.media && state.media.artist || '...' }}</h2>
+        </div>
+      </div>
+    </div>
+
   </swiper>
 
   <!-- Let's have a volume gauge -->

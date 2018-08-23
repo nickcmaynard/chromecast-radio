@@ -28,8 +28,20 @@
   padding: 10px;
 }
 
+.album {
+  position: relative;
+
+  .programme-info {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(56, 63, 72, 0.75);
+  }
+}
+
 .programme-info {
-  background-color: #383f48;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgb(56, 63, 72);
   color: white;
 }
 
