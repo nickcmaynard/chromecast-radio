@@ -23,6 +23,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   programmes: any;
   tracks: any;
 
+  stateTimeout: any;
+
   public mainConfig: SwiperConfigInterface = {
     direction: 'horizontal',
     slidesPerView: 1,
@@ -46,12 +48,23 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   onNewState(state) {
     this.state = state;
+    this.showCorrectPane();
+  }
+
+  showCorrectPane() {
+    // Reset the "debounce"
+    this.stateTimeout && clearTimeout(this.stateTimeout);
 
     const pane = this.getActivePaneIndex();
     if (pane !== -1) {
+      // Definitely something happening on a specific pane - show it
       this.showPane(pane);
     } else {
-      this.showPane(this.stations.findIndex(s => s.preferred));
+      // Wait a second in case changes are still coming
+      this.stateTimeout = setTimeout(() => {
+        // Set to the preferred pane
+        this.showPane(this.stations.findIndex(s => s.preferred));
+      }, 5000);
     }
   }
 
@@ -63,8 +76,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       // highlight final pane if album playing
       return this.stations.length;
     } else {
-      // highlight preferred pane
-      return this.stations.findIndex(s => s.preferred);
+      return -1;
     }
   }
 
@@ -133,7 +145,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         clearTimeout(slideReset);
       }
       slideReset = setTimeout(() => {
-        this.showPane(this.getActivePaneIndex());
+        this.showCorrectPane();
       }, 10000);
     });
   }
