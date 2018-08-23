@@ -110,7 +110,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   isPlayingAlbum() {
-    return this.state && this.state.play === 'play' && this.state.power === 'on' && this.state.media && (this.state.media.albumName || this.state.media.albumArtist);
+    return this.state && this.state.play === 'play' && this.state.power === 'on'
+        && this.state.media && (this.state.media.albumName || this.state.media.albumArtist);
   }
 
   showPane(index) {
