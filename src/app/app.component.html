@@ -3,7 +3,7 @@
   <swiper [config]="mainConfig" #mainSwiper class="main swiper">
 
     <!-- Show info for radio stations -->
-    <div *ngFor="let station of stations" class="pane" [ngClass]="{'playing': isPlaying(station)}">
+    <div *ngFor="let station of stations" class="pane" [ngClass]="{'playing': isPlayingStation(station)}">
       <img class="station-logo" src="{{station.image}}" />
       <div class="now-playing mat-typography">
         <img *ngIf="programmes[station.rpId] && programmes[station.rpId].imageUrl" src="{{ getImageUrl(programmes[station.rpId].imageUrl) }}" class="programme-logo">
@@ -17,10 +17,10 @@
         </div>
       </div>
       <div class="actions">
-        <button mat-fab *ngIf="!(isPlaying(station))" (click)="play(station)">
+        <button mat-fab *ngIf="!(isPlayingStation(station))" (click)="play(station)">
           <mat-icon svgIcon="play"></mat-icon>
         </button>
-        <button mat-fab *ngIf="isPlaying(station)" (click)="pause()">
+        <button mat-fab *ngIf="isPlayingStation(station)" (click)="pause()">
           <mat-icon svgIcon="pause"></mat-icon>
         </button>
       </div>

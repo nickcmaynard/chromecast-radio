@@ -46,12 +46,26 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   onNewState(state) {
     this.state = state;
-    this.showPane(this.getActivePaneIndex());
+
+    const pane = this.getActivePaneIndex();
+    if (pane !== -1) {
+      this.showPane(pane);
+    } else {
+      this.showPane(this.stations.findIndex(s => s.preferred));
+    }
   }
 
   getActivePaneIndex() {
     const activeStationIndex = this.getActiveStationIndex();
-    return activeStationIndex === -1 ? this.stations.length : activeStationIndex; // highlight final pane if no station playing
+    if (activeStationIndex !== -1) {
+      return activeStationIndex;
+    } else if (this.isPlayingAlbum()) {
+      // highlight final pane if album playing
+      return this.stations.length;
+    } else {
+      // highlight preferred pane
+      return this.stations.findIndex(s => s.preferred);
+    }
   }
 
   getActiveStation() {
@@ -91,12 +105,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     return activeStation && activeStation.name === station.name;
   }
 
-  isPlaying(station) {
+  isPlayingStation(station) {
     return this.isActive(station) && this.state.play === 'play' && this.state.power === 'on';
   }
 
   isPlayingAlbum() {
-    return this.state && this.state.media && (this.state.media.albumName || this.state.media.albumArtist);
+    return this.state && this.state.play === 'play' && this.state.power === 'on' && this.state.media && (this.state.media.albumName || this.state.media.albumArtist);
   }
 
   showPane(index) {

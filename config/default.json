@@ -12,7 +12,8 @@
     "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_two.m3u8",
     "contentType": "application/x-mpeg",
     "image": "/assets/images/stations/BBC-Radio-2.png",
-    "rpId": 342
+    "rpId": 342,
+    "preferred": true
   }, {
     "group": "BBC",
     "name": "Radio 3",
