@@ -1,3 +1,25 @@
+@keyframes kitt {
+  0% {
+    transform: translateX(100vw) translateX(-100%) translateX(-20px);
+  }
+  20% {
+    transform: translateX(100vw) translateX(-100%) translateX(-20px);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.single-line {
+  width: fit-content;
+  white-space: nowrap;
+  min-width: 100%;
+  animation: kitt ease-in-out 10s infinite alternate;
+}
+
 .app-component {
   height: 100%;
   width: 100%;
@@ -28,16 +50,6 @@
   padding: 10px;
 }
 
-.album {
-  position: relative;
-
-  .programme-info {
-    position: absolute;
-    bottom: 0;
-    background-color: rgba(56, 63, 72, 0.75);
-  }
-}
-
 .programme-info {
   width: 100%;
   box-sizing: border-box;
@@ -64,6 +76,14 @@
 .pane {
   width: 100%;
   box-sizing: border-box;
+}
+
+.pane.media {
+  background-color: #222;
+
+  .track-info {
+    color:white;
+  }
 }
 
 .programme-info, .track-info {

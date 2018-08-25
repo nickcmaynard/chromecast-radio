@@ -27,18 +27,16 @@
     </div>
 
     <!-- Show info for random media that's playing -->
-    <div class="pane" [ngClass]="{'playing': isPlayingAlbum()}">
+    <div class="pane media" [ngClass]="{'playing': isPlayingAlbum()}">
       <div class="now-playing mat-typography">
-        <div class="album">
-          <img *ngIf="state && state.media && state.media.images && state.media.images.length > 0" src="{{ state.media.images[0].url }}" class="programme-logo">
-          <div class="programme-info">
-            <h2>{{ state && state.media && state.media.albumName || '...' }}</h2>
-            <h3>{{ state && state.media && state.media.albumArtist || '...' }}</h3>
-          </div>
+        <img src="{{ state?.media?.images ? state?.media?.images[0]?.url : '' ||  '/assets/images/misc-media.jpg' }}" class="programme-logo">
+        <div class="programme-info">
+          <h2 class="single-line">{{ state && state.media && state.media.albumName || '...' }}</h2>
+          <h3 class="single-line">{{ state && state.media && state.media.albumArtist || '...' }}</h3>
         </div>
         <div class="track-info">
-          <h1>{{ state && state.media && state.media.title || '...' }}</h1>
-          <h2>{{ state && state.media && state.media.artist || '...' }}</h2>
+          <h1 class="single-line">{{ state && state.media && state.media.title || '...' }}</h1>
+          <h2 class="single-line">{{ state && state.media && state.media.artist || '...' }}</h2>
         </div>
       </div>
     </div>
