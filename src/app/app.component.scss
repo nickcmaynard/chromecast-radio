@@ -20,6 +20,12 @@
   animation: kitt ease-in-out 10s infinite alternate;
 }
 
+.mat-typography {
+  h1, h2, h3, h4, h5, h6, p {
+    font-family: Overpass !important;
+  }
+}
+
 .app-component {
   height: 100%;
   width: 100%;
@@ -78,11 +84,23 @@
   box-sizing: border-box;
 }
 
+.pane.station {
+  .track-info {
+    h1, h2, h3, h4, h5 {
+      font-weight: bold;
+    }
+  }
+}
+
 .pane.media {
   background-color: #222;
 
+  img {
+    background-color: white;
+  }
+
   .track-info {
-    color:white;
+    color: white;
   }
 }
 

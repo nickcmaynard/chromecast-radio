@@ -96,9 +96,18 @@ export class AppComponent implements OnInit, AfterViewInit {
   getProgrammeTitle(programme) {
     const colonIdx = programme.name.indexOf(' : ');
     if (colonIdx !== -1) {
-      return `<h2>${programme.name.substring(0, colonIdx)}</h2><h3>${programme.name.substring(colonIdx + 3)}</h3>`;
+      return programme.name.substring(0, colonIdx)
     } else {
-      return `<h2>${programme.name}</h2>`;
+      return programme.name;
+    }
+  }
+
+  getProgrammeSubtitle(programme) {
+    const colonIdx = programme.name.indexOf(' : ');
+    if (colonIdx !== -1) {
+      return programme.name.substring(colonIdx + 3);
+    } else {
+      return;
     }
   }
 
