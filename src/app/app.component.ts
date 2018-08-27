@@ -53,7 +53,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   showCorrectPane() {
     // Reset the "debounce"
-    this.stateTimeout && clearTimeout(this.stateTimeout);
+    if (this.stateTimeout) {
+      clearTimeout(this.stateTimeout);
+    }
 
     const pane = this.getActivePaneIndex();
     if (pane !== -1) {
@@ -96,7 +98,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   getProgrammeTitle(programme) {
     const colonIdx = programme.name.indexOf(' : ');
     if (colonIdx !== -1) {
-      return programme.name.substring(0, colonIdx)
+      return programme.name.substring(0, colonIdx);
     } else {
       return programme.name;
     }
