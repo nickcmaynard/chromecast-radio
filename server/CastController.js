@@ -89,6 +89,7 @@ class CastController extends EventEmitter {
           }
           this.client = new Client();
           this.client.connect(this.clientIp, () => {
+            debug('client connected');
             this.clientDeferred.resolve();
           });
           this.client.on('error', err => {
@@ -118,9 +119,9 @@ class CastController extends EventEmitter {
       debug('starting new media receiver for new station');
       // Wait until we have a connection!
       this.clientDeferred.promise.then(() => {
-        const debug = require('debug')(`Radio:CastController:player:${Math.floor(Math.random() * 1000)}`);
+        const playerDebug = require('debug')(`Radio:CastController:player:${Math.floor(Math.random() * 1000)}`);
         this.client.launch(DefaultMediaReceiver, (err, player) => {
-          debug('launching receiver');
+          playerDebug('launching receiver');
           this.player = player;
 
           var media = {
@@ -146,13 +147,13 @@ class CastController extends EventEmitter {
           };
 
           player.on('status', function(status) {
-            debug('status broadcast playerState=%s', status.playerState);
+            playerDebug('status broadcast playerState=%s', status.playerState);
           });
 
-          debug('app "%s" launched, loading media %s ...', player.session.displayName, media.contentId);
+          playerDebug('app "%s" launched, loading media %s ...', player.session.displayName, media.contentId);
 
           player.load(media, { autoplay: true }, function(err, status) {
-            debug('media loaded playerState=%s', status && status.playerState);
+            playerDebug('media loaded playerState=%s', status && status.playerState);
           });
 
         });
