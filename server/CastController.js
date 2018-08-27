@@ -18,6 +18,7 @@ const Promise = Q.Promise;
 const Client                = require('castv2-client').Client;
 const DefaultMediaReceiver  = require('castv2-client').DefaultMediaReceiver;
 const mdns                  = require('mdns-js');
+const debounce              = require('debounce');
 
 const debug = require('debug')('Radio:CastController');
 
@@ -36,11 +37,18 @@ class CastController extends EventEmitter {
 
     // Monitor the chromecast's macro state
     this.dm = new DeviceMonitor(target);
+    const stateFields = ['power', 'application', 'media', 'play'];
+    const emitState = debounce(() => {
+      debug('emitState', this.state);
+      this.emit('state', this.state);
+    }, 500);
     const update = (name, state) => {
+      if (this.state[name] !== state) {
+        stateFields.slice(stateFields.indexOf(name)).forEach(field => delete state[field]);
+      }
       this.state[name] = state;
       this.emit(name + '-state', state);
-      this.emit('state', this.state);
-      debug(this.state);
+      emitState();
     };
     this.dm.on('powerState', state => update('power', state) );
     this.dm.on('playState', state => update('play', state) );
@@ -110,7 +118,9 @@ class CastController extends EventEmitter {
       debug('starting new media receiver for new station');
       // Wait until we have a connection!
       this.clientDeferred.promise.then(() => {
+        const debug = require('debug')(`Radio:CastController:player:${Math.floor(Math.random() * 1000)}`);
         this.client.launch(DefaultMediaReceiver, (err, player) => {
+          debug('launching receiver');
           this.player = player;
 
           var media = {
@@ -142,7 +152,7 @@ class CastController extends EventEmitter {
           debug('app "%s" launched, loading media %s ...', player.session.displayName, media.contentId);
 
           player.load(media, { autoplay: true }, function(err, status) {
-            debug('media loaded playerState=%s', status.playerState);
+            debug('media loaded playerState=%s', status && status.playerState);
           });
 
         });

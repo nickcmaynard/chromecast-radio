@@ -46,6 +46,7 @@ class OnAirController extends EventEmitter {
 
   poll(rpIds) {
     const url = this.generatePollUrl(rpIds);
+    debug('polling', rpIds);
     jsonpClient(addCallback(url), (error, data) => {
       if (error) {
         console.error(error);
@@ -55,7 +56,7 @@ class OnAirController extends EventEmitter {
         console.error(data);
         return;
       }
-      debug(data);
+      debug('got onair information', data);
       rpIds.forEach(id => {
         const stationInfo = data.results[`${id}`];
         const programme = stationInfo.find(i => i.type === 'PI');
