@@ -43,7 +43,6 @@
     "q": "^1.5.1",
     "rxjs": "^5.5.2",
     "socket.io": "^2.0.4",
-    "typeface-overpass": "0.0.54",
     "zone.js": "^0.8.20"
   },
   "devDependencies": {
