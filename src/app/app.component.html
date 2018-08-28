@@ -13,8 +13,8 @@
           <p class="programme-description">{{ programmes[station.rpId] && programmes[station.rpId].description || '...' }}</p>
         </div>
         <div class="track-info">
-          <h1 *ngIf="tracks[station.rpId]"><single-line>{{ tracks[station.rpId] && tracks[station.rpId].artistName || '...'}}</single-line></h1>
-          <h2 *ngIf="tracks[station.rpId]"><single-line>{{ tracks[station.rpId] && tracks[station.rpId].name || '...'}}</single-line></h2>
+          <h1 *ngIf="tracks[station.rpId]"><single-line text="{{ tracks[station.rpId] && tracks[station.rpId].artistName || '...'}}"></single-line></h1>
+          <h2 *ngIf="tracks[station.rpId]"><single-line text="{{ tracks[station.rpId] && tracks[station.rpId].name || '...'}}"></single-line></h2>
         </div>
       </div>
       <div class="actions">
@@ -32,12 +32,12 @@
       <div class="now-playing mat-typography">
         <img src="{{ state?.media?.images ? state?.media?.images[0]?.url : '' ||  '/assets/images/misc-media.jpg' }}" class="programme-logo">
         <div class="programme-info">
-          <h2><single-line>{{ state && state.media && state.media.albumName || '...' }}</single-line></h2>
-          <h3><single-line>{{ state && state.media && state.media.albumArtist || '...' }}</single-line></h3>
+          <h2><single-line text="{{ state && state.media && state.media.albumName || '...' }}"></single-line></h2>
+          <h3><single-line text="{{ state && state.media && state.media.albumArtist || '...' }}"></single-line></h3>
         </div>
         <div class="track-info">
-          <h1><single-line>{{ state && state.media && state.media.title || '...' }}</single-line></h1>
-          <h2><single-line>{{ state && state.media && state.media.artist || '...' }}</single-line></h2>
+          <h1><single-line text="{{ state && state.media && state.media.title || '...' }}"></single-line></h1>
+          <h2><single-line text="{{ state && state.media && state.media.artist || '...' }}"></single-line></h2>
         </div>
       </div>
     </div>
