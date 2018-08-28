@@ -1,7 +1,7 @@
 import { Component, ViewChild, Input } from '@angular/core';
 
 @Component({
-  selector: 'single-line',
+  selector: 'app-single-line',
   template: '<div #ele [innerHTML]="getWrappedText()"></div>',
   styleUrls: ['./single-line.component.scss']
 })
