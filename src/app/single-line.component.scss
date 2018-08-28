@@ -1,0 +1,22 @@
+@keyframes kitt {
+  0% {
+    transform: translateX(100vw) translateX(-100%) translateX(-20px);
+  }
+  20% {
+    transform: translateX(100vw) translateX(-100%) translateX(-20px);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.single-line {
+  display: block;
+  width: fit-content;
+  white-space: nowrap;
+  min-width: 100%;
+  animation: kitt ease-in-out 10s infinite alternate;
+}

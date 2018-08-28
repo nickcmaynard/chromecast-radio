@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { CommService } from './comm.service';
+import { SingleLineComponent } from './single-line.component';
 
 import {
   SwiperComponent, SwiperDirective, SwiperConfigInterface,
@@ -10,7 +11,7 @@ import {
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [CommService]
+  providers: [CommService, SingleLineComponent]
 })
 export class AppComponent implements OnInit, AfterViewInit {
 

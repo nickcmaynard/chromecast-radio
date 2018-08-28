@@ -17,11 +17,13 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 };
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { SingleLineComponent } from './single-line.component';
 const config: SocketIoConfig = { url: '' };
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SingleLineComponent
   ],
   imports: [
     BrowserModule,
