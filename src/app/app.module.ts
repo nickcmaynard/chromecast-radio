@@ -20,7 +20,7 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { SingleLineComponent } from './single-line/single-line.component';
 import { RadioPaneComponent } from './radio-pane/radio-pane.component';
 import { NowPlayingPaneComponent } from './now-playing-pane/now-playing-pane.component';
-const config: SocketIoConfig = { url: '' };
+const config: SocketIoConfig = { url: '', options: { transports: ['websocket'] } };
 
 @NgModule({
   declarations: [
