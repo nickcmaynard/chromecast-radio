@@ -1,0 +1,23 @@
+<div class="pane radio-pane-component" [ngClass]="{'playing': playing}">
+  <img class="station-logo" src="{{station.image}}" />
+  <div class="now-playing mat-typography">
+    <img *ngIf="programme?.imageUrl" src="{{ getImageUrl(programme?.imageUrl) }}" class="programme-logo">
+    <div class="programme-info">
+      <h2>{{ getProgrammeTitle(programme) || '...' }}</h2>
+      <h3>{{ getProgrammeSubtitle(programme) }}</h3>
+      <p class="programme-description">{{ programme?.description || '...' }}</p>
+    </div>
+    <div class="track-info">
+      <h1 *ngIf="track"><app-single-line [text]="track?.artistName || '...'"></app-single-line></h1>
+      <h2 *ngIf="track"><app-single-line [text]="track?.name || '...'"></app-single-line></h2>
+    </div>
+  </div>
+  <div class="actions">
+    <button mat-fab *ngIf="!playing" (click)="play(station)">
+      <mat-icon svgIcon="play"></mat-icon>
+    </button>
+    <button mat-fab *ngIf="playing" (click)="pause()">
+      <mat-icon svgIcon="pause"></mat-icon>
+    </button>
+  </div>
+</div>

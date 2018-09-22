@@ -1,6 +1,8 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { CommService } from './comm.service';
-import { SingleLineComponent } from './single-line.component';
+import { NowPlayingPaneComponent } from './now-playing-pane/now-playing-pane.component';
+import { RadioPaneComponent } from './radio-pane/radio-pane.component';
+import { SingleLineComponent } from './single-line/single-line.component';
 
 import {
   SwiperComponent, SwiperDirective, SwiperConfigInterface,
@@ -11,7 +13,7 @@ import {
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [CommService, SingleLineComponent]
+  providers: [CommService]
 })
 export class AppComponent implements OnInit, AfterViewInit {
 
@@ -96,34 +98,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getProgrammeTitle(programme) {
-    const colonIdx = programme.name.indexOf(' : ');
-    if (colonIdx !== -1) {
-      return programme.name.substring(0, colonIdx);
-    } else {
-      return programme.name;
-    }
-  }
-
-  getProgrammeSubtitle(programme) {
-    const colonIdx = programme.name.indexOf(' : ');
-    if (colonIdx !== -1) {
-      return programme.name.substring(colonIdx + 3);
-    } else {
-      return;
-    }
-  }
-
-  getImageUrl(url) {
-    // Enhance ichef urls
-    const re = new RegExp('^https?:\/\/ichef\.bbci\.co\.uk\/images\/ic\/(\\d+x\\d+)\/(.+)$');
-    const matches = re.exec(url);
-    if (matches) {
-      return `http://ichef.bbci.co.uk/images/ic/736x414/${matches[2]}`;
-    }
-    return url;
-  }
-
   isActive(station) {
     const activeStation = this.getActiveStation();
     return activeStation && activeStation.name === station.name;
@@ -140,14 +114,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   showPane(index) {
     this.mainSwiperRef.directiveRef.setIndex(index);
-  }
-
-  play(station) {
-    this.commService.action('play', station);
-  }
-
-  pause() {
-    this.commService.action('pause', null);
   }
 
   ngAfterViewInit() {

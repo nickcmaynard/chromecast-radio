@@ -1,8 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
-// @import "~bootstrap/scss/bootstrap.scss";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// Define a customised version of indigo-pink prebuilt material theme
+@import '~@angular/material/theming';
+$custom-typography: mat-typography-config(
+  $font-family: 'Overpass'
+);
+// From https://github.com/angular/material2/blob/master/src/lib/core/theming/prebuilt/indigo-pink.scss
+@include mat-core($custom-typography);
+$primary: mat-palette($mat-indigo);
+$accent:  mat-palette($mat-pink, A200, A100, A400);
+$theme: mat-light-theme($primary, $accent);
+@include angular-material-theme($theme);
 
-html, body {
+// Generic overrides
+body,
+html {
   height: 100%;
   width: 100%;
   margin: 0;

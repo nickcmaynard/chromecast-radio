@@ -1,151 +1,17 @@
-@keyframes kitt {
-  0% {
-    transform: translateX(100vw) translateX(-100%) translateX(-20px);
-  }
-  20% {
-    transform: translateX(100vw) translateX(-100%) translateX(-20px);
-  }
-  80% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-.swiper-slide-active .single-line {
-  width: fit-content;
-  white-space: nowrap;
-  min-width: 100%;
-  animation: kitt ease-in-out 10s infinite alternate;
-}
-
-.mat-typography {
-  h1, h2, h3, h4, h5, h6, p {
-    font-family: Overpass !important;
-  }
-}
-
 .app-component {
   height: 100%;
   width: 100%;
-}
-
-.actions {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  padding: 10px;
-}
-
-.now-playing {
-  opacity: 0.5;
-  transition: opacity ease 2s;
-}
-
-.pane.playing .now-playing {
-  opacity: 1;
-}
-
-.programme-logo {
-  display: block;
-  width: 100%;
-}
-
-.now-playing .programme-info, .now-playing .track-info {
-  padding: 10px;
-}
-
-.programme-info {
-  width: 100%;
-  box-sizing: border-box;
-  background-color: rgb(56, 63, 72);
-  color: white;
-}
-
-.programme-description {
-  font-size: smaller;
-  color: #999;
 }
 
 .swiper-slide {
   height: 100%;
 }
 
-.station-logo {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 33%;
+.pane .now-playing {
+  opacity: 0.5;
+  transition: opacity ease 2s;
 }
 
-.pane {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.pane.station {
-  .track-info {
-    h1, h2, h3, h4, h5 {
-      font-weight: bold;
-    }
-  }
-}
-
-.pane.media {
-  background-color: #222;
-
-  img {
-    background-color: white;
-  }
-
-  .track-info {
-    color: white;
-  }
-}
-
-.programme-info, .track-info {
-  /deep/ h1, /deep/ h2, /deep/ h3 {
-    margin-bottom: 8px;
-  }
-}
-
-@media screen and (orientation: landscape) {
-  .station-logo {
-    width: auto;
-    height: 20%;
-    width: auto;
-  }
-
-  .now-playing {
-    height: 100%;
-    width: 100%;
-
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-content: stretch;
-    align-items: stretch;
-
-    .programme-logo {
-      order: 0;
-      flex: 1 1 auto;
-      width: 100vh;
-      height: auto;
-      display: inline;
-      align-self: center;
-      background-size: cover;
-    }
-
-    .programme-info {
-      order: 0;
-      flex: 1 0 100%;
-    }
-
-    .track-info {
-      order: 1;
-      flex: 1 1 auto;
-    }
-  }
+.pane.playing .now-playing {
+  opacity: 1;
 }
