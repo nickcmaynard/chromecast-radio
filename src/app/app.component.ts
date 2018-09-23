@@ -63,7 +63,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     const pane = this.getActivePaneIndex();
     if (pane !== -1) {
       // Definitely something happening on a specific pane - show it
-      this.showPane(pane);
+      this.stateTimeout = setTimeout(() => {
+        this.showPane(pane);
+      }, 50);
     } else {
       // Wait a second in case changes are still coming
       this.stateTimeout = setTimeout(() => {
