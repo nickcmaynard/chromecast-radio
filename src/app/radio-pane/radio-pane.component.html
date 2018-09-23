@@ -1,6 +1,5 @@
-<div class="pane radio-pane-component" [ngClass]="{'playing': playing}">
-  <img class="station-logo" src="{{station.image}}" />
-  <div class="now-playing mat-typography">
+<div class="pane mat-typography" [ngClass]="{'playing': playing}">
+  <section class="programme">
     <img *ngIf="programme?.imageUrl" src="{{ getImageUrl(programme?.imageUrl) }}" class="programme-logo">
     <div class="programme-info">
       <h2><app-single-line [text]="getProgrammeTitle(programme) || '...'"></app-single-line></h2>
@@ -11,7 +10,10 @@
       <h1 *ngIf="track"><app-single-line [text]="track?.artistName || '...'"></app-single-line></h1>
       <h2 *ngIf="track"><app-single-line [text]="track?.name || '...'"></app-single-line></h2>
     </div>
-  </div>
+  </section>
+
+  <!-- absolutely positioned elements -->
+  <img class="station-logo" src="{{station.image}}" />
   <div class="actions">
     <button mat-fab *ngIf="!playing" (click)="play(station)">
       <mat-icon svgIcon="play"></mat-icon>

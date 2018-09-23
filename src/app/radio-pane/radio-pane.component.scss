@@ -1,6 +1,13 @@
 @import "../generic-pane.scss";
 
-.radio-pane-component {}
+.pane .programme {
+  opacity: 0.5;
+  transition: opacity ease 2s;
+}
+
+.pane.playing .programme {
+  opacity: 1;
+}
 
 .track-info {
   h1,
@@ -24,4 +31,10 @@
   bottom: 10px;
   right: 10px;
   width: 33%;
+}
+
+.programme-description {
+  font-size: smaller;
+  color: #999;
+  margin-bottom: 0;
 }

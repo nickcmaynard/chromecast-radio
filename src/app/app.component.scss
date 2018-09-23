@@ -6,12 +6,3 @@
 .swiper-slide {
   height: 100%;
 }
-
-.pane .now-playing {
-  opacity: 0.5;
-  transition: opacity ease 2s;
-}
-
-.pane.playing .now-playing {
-  opacity: 1;
-}

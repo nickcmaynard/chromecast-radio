@@ -1,13 +1,11 @@
-<div class="pane now-playing-pane-component">
-  <div class="now-playing mat-typography">
-    <img src="{{ state?.media?.images ? state?.media?.images[0]?.url : '' ||  '/assets/images/misc-media.jpg' }}" class="programme-logo">
-    <div class="programme-info">
-      <h2><app-single-line [text]="state?.media?.albumName || '...'"></app-single-line></h2>
-      <h3><app-single-line [text]="state?.media?.albumArtist || '...'"></app-single-line></h3>
-    </div>
-    <div class="track-info">
-      <h1><app-single-line [text]="state?.media?.title || '...'"></app-single-line></h1>
-      <h2><app-single-line [text]="state?.media?.artist || '...'"></app-single-line></h2>
-    </div>
+<div class="pane mat-typography">
+  <img src="{{ state?.media?.images ? state?.media?.images[0]?.url : '' ||  '/assets/images/misc-media.jpg'}}" class="programme-logo">
+  <div class="programme-info">
+    <h2><app-single-line [text]="state?.media?.albumName || '...'"></app-single-line></h2>
+    <h3><app-single-line [text]="state?.media?.albumArtist || '...'"></app-single-line></h3>
+  </div>
+  <div class="track-info">
+    <h1><app-single-line [text]="state?.media?.title || '...'"></app-single-line></h1>
+    <h2><app-single-line [text]="state?.media?.artist || '...'"></app-single-line></h2>
   </div>
 </div>

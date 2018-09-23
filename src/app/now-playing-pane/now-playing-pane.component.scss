@@ -1,11 +1,7 @@
 @import "../generic-pane.scss";
 
-.now-playing-pane-component {
+:host {
   background-color: #222;
-}
-
-img {
-  background-color: white;
 }
 
 .track-info {
