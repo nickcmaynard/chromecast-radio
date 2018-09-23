@@ -2,7 +2,6 @@ import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatIconModule, MatSliderModule, MatIconRegistry } from '@angular/material';
-import {} from 'typeface-overpass';
 
 import { HttpClientModule } from '@angular/common/http';
 

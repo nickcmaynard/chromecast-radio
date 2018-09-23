@@ -1,3 +1,6 @@
+// Import overpass
+@import '~typeface-overpass/index.css';
+
 // Define a customised version of indigo-pink prebuilt material theme
 @import '~@angular/material/theming';
 $custom-typography: mat-typography-config(
