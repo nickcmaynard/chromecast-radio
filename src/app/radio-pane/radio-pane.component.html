@@ -3,7 +3,7 @@
     <img *ngIf="programme?.imageUrl" src="{{ getImageUrl(programme?.imageUrl) }}" class="programme-logo">
     <div class="programme-info">
       <h2><app-single-line [text]="getProgrammeTitle(programme) || '...'"></app-single-line></h2>
-      <h3><app-single-line [text]="getProgrammeSubtitle(programme)"></app-single-line></h3>
+      <h3><app-single-line [text]="getProgrammeSubtitle(programme) || ''"></app-single-line></h3>
       <p class="programme-description">{{ programme?.description || '...' }}</p>
     </div>
     <div class="track-info">
