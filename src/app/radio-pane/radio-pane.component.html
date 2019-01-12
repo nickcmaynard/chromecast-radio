@@ -14,7 +14,7 @@
 
   <!-- absolutely positioned elements -->
   <img class="station-logo" src="{{station.image}}" />
-  <div class="actions">
+  <div class="actions" [ngClass]="{'expanded': playerIsIdle}">
     <button mat-fab *ngIf="!playing" (click)="play(station)">
       <mat-icon svgIcon="play"></mat-icon>
     </button>

@@ -13,6 +13,7 @@ export class RadioPaneComponent implements OnInit {
   @Input() programme: any;
   @Input() track: any;
   @Input() playing: boolean;
+  @Input() playerIsIdle: boolean;
 
   constructor(private commService: CommService) { }
 

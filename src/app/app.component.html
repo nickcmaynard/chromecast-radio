@@ -3,7 +3,7 @@
   <swiper [config]="mainConfig" #mainSwiper class="main swiper">
 
     <!-- Show info for radio stations -->
-    <app-radio-pane *ngFor="let station of stations" [playing]="isPlayingStation(station)" [station]="station" [programme]="programmes[station.rpId]" [track]="tracks[station.rpId]">
+    <app-radio-pane *ngFor="let station of stations" [playerIsIdle]="isIdle()" [playing]="isPlayingStation(station)" [station]="station" [programme]="programmes[station.rpId]" [track]="tracks[station.rpId]">
     </app-radio-pane>
 
     <!-- Show info for random media that's playing -->

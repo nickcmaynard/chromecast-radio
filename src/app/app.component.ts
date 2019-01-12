@@ -100,6 +100,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
+  isIdle() {
+    return !(this.isPlayingStation(this.stations[this.getActiveStationIndex()]) || this.isPlayingAlbum());
+  }
+
   isActive(station) {
     const activeStation = this.getActiveStation();
     return activeStation && activeStation.name === station.name;
