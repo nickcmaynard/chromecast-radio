@@ -9,8 +9,8 @@ const defaultDebounce = 1000;
 @Injectable()
 export class CommService {
 
-  static _stateDebounceTime: integer = defaultDebounce;
-  static _stateDebounceTimer: Object;
+  static _stateDebounceTime: number = defaultDebounce;
+  static _stateDebounceTimeout: number;
   
   constructor(private socket: Socket) { }
 
@@ -45,8 +45,8 @@ export class CommService {
   action(type, args) {
     // Setting an action.  Debounce state updates for a bit
     CommService._stateDebounceTime = actionQuietPeriod;
-    clearTimeout(CommService._stateDebounceTimer);
-    CommService._stateDebounceTimer = setTimeout(() => { CommService._stateDebounceTime = defaultDebounce }, actionQuietPeriod);
+    clearTimeout(CommService._stateDebounceTimeout);
+    CommService._stateDebounceTimeout = setTimeout(() => { CommService._stateDebounceTime = defaultDebounce }, actionQuietPeriod);
     
     return this.socket.emit(`action-${type}`, args);
   }
