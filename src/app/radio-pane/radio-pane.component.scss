@@ -26,7 +26,6 @@
   transition: transform 2s;
   transform-origin: bottom left;
   transform: translate(10px, -10px);
-  transition-delay: 2s;
 
   &.expanded {
     transform: translate(calc((100vw - 168px) / 2), calc((100vh - 168px) / -2)) scale(3);
