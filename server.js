@@ -58,7 +58,7 @@ cast.on('state', state => currentState = state);
 const OnAirController = require('./server/OnAirController');
 const onair = new OnAirController();
 // Kick off occasional monitoring of all stations
-onair.monitorOccasional(stations.map(station => station.rpId).filter(id => !!id));
+onair.monitorOccasional(stations);
 
 /**
  * Attach WebSockets
@@ -72,7 +72,7 @@ socket.on('connection', function(client) {
   debug('Web client has connected');
 
   // Reset the occasional monitor - get the latest information now
-  onair.monitorOccasional(stations.map(station => station.rpId).filter(id => !!id));
+  onair.monitorOccasional(stations);
 
   // Send station information *first*
   client.emit('stations', stations);
@@ -94,7 +94,7 @@ socket.on('connection', function(client) {
     cast.play(station);
 
     // We're playing a different station now - immediately start monitoring  it in detail
-    onair.monitorFrequent([station.rpId]);
+    onair.monitorFrequent([station]);
   });
 
   client.on('action-pause', args => {
@@ -109,26 +109,19 @@ socket.on('connection', function(client) {
 
 // Whenever programme or track information changes, clients want to know
 onair.on('programme-info', data => {
-  // Find the associated station
-  const station = stations.find(station => data.rpId === station.rpId);
-  if (!station) {
+  debug(`received programme info`, data);
+  if (!data.station) {
     return;
   }
-  socket.emit('programme-info', {
-    station: station,
-    programme: data.programme
-  });
+  socket.emit('programme-info', data);
 });
 onair.on('track-info', data => {
+  debug(`received track info`, data);
   // Find the associated station
-  const station = stations.find(station => data.rpId === station.rpId);
-  if (!station) {
+  if (!data.station) {
     return;
   }
-  socket.emit('track-info', {
-    station: station,
-    track: data.track
-  });
+  socket.emit('track-info', data);
 });
 
 // Whenever our state changes, clients want to know
@@ -139,7 +132,7 @@ cast.on('state', state => {
   // If we're *playing* a station, then monitor it more frequently
   const activeStation = state.application == 'Default Media Receiver' && stations.find(station => station.name === (state && state.media && state.media.title));
   if (activeStation && state.play === 'play') {
-    onair.monitorFrequent([activeStation.rpId]);
+    onair.monitorFrequent([activeStation]);
   }
 });
 
