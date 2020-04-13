@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import * as hash from 'object-hash';
 import { CommService } from './comm.service';
 import { NowPlayingPaneComponent } from './now-playing-pane/now-playing-pane.component';
 import { RadioPaneComponent } from './radio-pane/radio-pane.component';
@@ -45,8 +46,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.commService.getState().subscribe(this.onNewState.bind(this));
     this.commService.getStations().subscribe(stations => this.stations = stations);
-    this.commService.getProgrammeInfo().subscribe((info: any) => this.programmes[info.station.rpId] = info.programme);
-    this.commService.getTrackInfo().subscribe((info: any) => this.tracks[info.station.rpId] = info.track);
+    this.commService.getProgrammeInfo().subscribe((info: any) => this.programmes[hash(info.station)] = info.programme);
+    this.commService.getTrackInfo().subscribe((info: any) => this.tracks[hash(info.station)] = info.track);
   }
 
   onNewState(state) {
@@ -116,6 +117,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   isPlayingAlbum() {
     return this.state && this.state.play === 'play' && this.state.power === 'on'
         && this.state.media && (this.state.media.albumName || this.state.media.albumArtist);
+  }
+  
+  getProgramme(station) {
+    return this.programmes[hash(station)];
+  }
+  
+  getTrack(station) {
+    return this.tracks[hash(station)];
   }
 
   showPane(index) {
