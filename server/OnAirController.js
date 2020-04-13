@@ -54,27 +54,27 @@ class OnAirController extends EventEmitter {
     debug(`polling ${bbcStations.length} BBC stations' track info`);
     
     // Get track info
-    stations.forEach(station => {
+    bbcStations.forEach(station => {
       
       bent('json')(`https://rms.api.bbc.co.uk/v2/services/${station.bbcMeta.rmsId}/segments/latest`).then(response => {
         debug('got track information', JSON.stringify(response, null, 2));
         if (_.get(response, 'data[0].offset.now_playing')) {
-          debug(`track is playing on rpId ${station.bbcMeta.rpId}`);
+          debug(`track is playing on rmsId ${station.bbcMeta.rmsId}`);
           this.emit('track-info', { station, track: {
             artistName: response.data[0].titles.primary,
             name: response.data[0].titles.secondary
           }});
         } else {
-          debug(`track is NOT playing on rpId  ${station.bbcMeta.rpId}`);
+          debug(`track is NOT playing on rmsId ${station.bbcMeta.rmsId}`);
           this.emit('track-info', { station, track: undefined });
         }
       });
-      // 
-      // bent('json')(`https://ess.api.bbci.co.uk/schedules?serviceId=${id}`).then(response => {
+      
+      // bent('json')(`https://ess.api.bbci.co.uk/schedules?serviceId=${station.bbcMeta.rmsId}`).then(response => {
       //   debug('got programme information', JSON.stringify(response, null, 2));
       //   const now = new Date().toISOString();
       //   const programme = response.items.find(i => i.published_time.start <= now && i.published_time.end > now);
-      //   programme && this.emit('programme-info', { rpId: id, programme: {
+      //   programme && this.emit('programme-info', { station, programme: {
       //     name: `${programme.brand.title} : ${programme.episode.title}`
       //   }});
       // });
@@ -98,7 +98,7 @@ class OnAirController extends EventEmitter {
       debug('got programme information', JSON.stringify(data, null, 2));
       rpIds.forEach(rpId => {
         const programme = data.results[rpId].find(i => i.type === 'PI');
-        
+    
         const station = bbcStations.find(station => station.bbcMeta.rpId === rpId);
         programme && this.emit('programme-info', { station, programme });
       });
