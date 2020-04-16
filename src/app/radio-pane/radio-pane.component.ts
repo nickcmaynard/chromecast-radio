@@ -46,7 +46,7 @@ export class RadioPaneComponent implements OnInit {
 
   getImageUrl(url) {
     // Enhance ichef urls
-    const re = new RegExp('^https?:\/\/ichef\.bbci\.co\.uk\/images\/ic\/(\\d+x\\d+)\/(.+)$');
+    const re = new RegExp('^https?:\/\/ichef\.bbci\.co\.uk\/images\/ic\/(\\d+x\\d+|{recipe})\/(.+)$');
     const matches = re.exec(url);
     if (matches) {
       return `http://ichef.bbci.co.uk/images/ic/736x414/${matches[2]}`;
