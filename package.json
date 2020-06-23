@@ -12,8 +12,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "start": "node server",
-    "start-forever": "forever start -sw --minUptime 1000 --spinSleepTime 1000 server",
-    "restart-forever": "forever restart -s server",
+    "start-forever": "forever start --uid 'cc-radio' -sw --minUptime 1000 --spinSleepTime 1000 server",
+    "restart-forever": "forever restart -s 'cc-radio'",
     "stop-forever": "forever stop -s server"
   },
   "private": true,
