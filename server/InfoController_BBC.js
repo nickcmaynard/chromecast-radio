@@ -67,6 +67,8 @@ class InfoController_BBC extends EventEmitter {
         // debug('got schedules information', JSON.stringify(response, null, 2));
         this.schedules[station.bbcMeta.rmsId] = response.data;
         this._pollProgrammes([station]);
+      }, err => {
+        debug('couldn\'t get programme information', err);
       });
       
     });
@@ -107,6 +109,8 @@ class InfoController_BBC extends EventEmitter {
           debug(`track is NOT playing on rmsId ${station.bbcMeta.rmsId}`);
           this.emit('track-info', { station, track: undefined });
         }
+      }, err => {
+        debug('couldn\'t get track information', err);
       });
       
     });
