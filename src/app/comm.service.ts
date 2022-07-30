@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Socket } from 'ng-socket-io';
-import { Observable } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
+import { Observable, timer } from 'rxjs';
 import { debounce } from 'rxjs/operators';
 
 const actionQuietPeriod = 5000;
@@ -25,7 +25,7 @@ export class CommService {
 
   getState() {
     return this.socket
-      .fromEvent('state').pipe(debounce(() => Observable.timer(CommService._stateDebounceTime)));
+      .fromEvent('state').pipe(debounce(() => timer(CommService._stateDebounceTime)));
   }
 
   getProgrammeInfo() {

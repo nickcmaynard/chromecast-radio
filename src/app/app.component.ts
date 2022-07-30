@@ -6,7 +6,7 @@ import { RadioPaneComponent } from './radio-pane/radio-pane.component';
 import { SingleLineComponent } from './single-line/single-line.component';
 
 import {
-  SwiperComponent, SwiperDirective, SwiperConfigInterface,
+  SwiperModule, SwiperComponent, SwiperDirective, SwiperConfigInterface,
   SwiperScrollbarInterface, SwiperPaginationInterface
 } from 'ngx-swiper-wrapper';
 

@@ -60,15 +60,5 @@
       "rpId": 347,
       "rmsId": "bbc_6music"
     }
-  }, {
-    "group": "BBC",
-    "name": "Radio Solent",
-    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_solent.m3u8",
-    "contentType": "application/x-mpeg",
-    "image": "https://ichef.bbci.co.uk/images/ic/640x360/p01w4zvh.jpg",
-    "bbcMeta": {
-      "rpId": 329,
-      "rmsId": "bbc_radio_solent"
-    }
   }]
 }

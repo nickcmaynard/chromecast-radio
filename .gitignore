@@ -9,6 +9,7 @@
 
 # dependencies
 /node_modules
+/.angular/cache
 
 # IDEs and editors
 /.idea

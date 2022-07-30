@@ -1,7 +1,8 @@
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCardModule, MatIconModule, MatSliderModule, MatIconRegistry } from '@angular/material';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -17,7 +18,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   keyboard: true
 };
 
-import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SingleLineComponent } from './single-line/single-line.component';
 import { RadioPaneComponent } from './radio-pane/radio-pane.component';
 import { NowPlayingPaneComponent } from './now-playing-pane/now-playing-pane.component';
@@ -37,7 +38,7 @@ const config: SocketIoConfig = { url: '', options: { transports: ['websocket'] }
     BrowserAnimationsModule,
     HttpClientModule,
     // material - last
-    MatButtonModule, MatCardModule, MatIconModule, MatSliderModule
+    MatIconModule, MatButtonModule
   ],
   bootstrap: [AppComponent],
   providers: [

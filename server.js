@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
-const io = require('socket.io');
+const socketio = require('socket.io');
 const debug = require('debug')('Radio:Server');
 
 // Config
@@ -63,7 +63,7 @@ bbc_onair.monitorOccasional(stations);
  * Attach WebSockets
  */
 // Create a Socket.IO instance, passing it our server
-var socket = io.listen(server);
+var socket = socketio(server);
 
 // Add a connect listener
 socket.on('connection', function(client) {
@@ -75,6 +75,11 @@ socket.on('connection', function(client) {
 
   // Send station information *first*
   client.emit('stations', stations);
+
+  client.emit('programme-info', stations);
+  
+  // Update the schedule info
+  bbc_onair.updateProgrammes(stations);
 
   // Send whatever we have state-wise
   client.emit('state', currentState);
