@@ -87,18 +87,18 @@ class InfoController_BBC extends EventEmitter {
 
         const info = JSON.parse(domutils.textContent(thescripttag)).props.pageProps.result.schedule.items.map(item => {
           return {
-            start: item[0].scheduleInfo.start,
-            end: item[0].scheduleInfo.end,
+            start: _.get(item[0], 'scheduleInfo.start'),
+            end: _.get(item[0], 'scheduleInfo.end'),
             service_id: station.bbcMeta.rmsId,
-            synopses: item[0].myClipOrEpisode.synopsisList && item[0].myClipOrEpisode.synopsisList.reduce((result, item) => {
+            synopses: _.get(item[0], 'myClipOrEpisode.synopsisList', []).reduce((result, item) => {
               result[item.length] = item.text;
               return result;
             }, {}),
             titles: {
-              primary: item[0].title,
-              secondary: item[0].myClipOrEpisode.shortTitle
+              primary: _.get(item[0], 'title'),
+              secondary: _.get(item[0], 'myClipOrEpisode.shortTitle')
             },
-            image_url: item[0].myBrand && item[0].myBrand.imageFor.myImage.template
+            image_url: _.get(item[0], 'myBrand.imageFor.myImage.template')
           }
         });
         
