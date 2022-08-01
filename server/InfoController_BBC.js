@@ -98,7 +98,7 @@ class InfoController_BBC extends EventEmitter {
               primary: _.get(item[0], 'title'),
               secondary: _.get(item[0], 'myClipOrEpisode.shortTitle')
             },
-            image_url: _.get(item[0], 'myBrand.imageFor.myImage.template')
+            image_url: _.get(item[0], 'myClipOrEpisode.imageFor.myImage.template')
           }
         });
         
