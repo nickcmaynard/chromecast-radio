@@ -109,8 +109,10 @@ class InfoController_BBC extends EventEmitter {
       
       Promise.all([bent('string')(`https://genome.ch.bbc.co.uk/schedules/service_${station.bbcMeta.rmsId}/${dateString}`).then(handler, err => {
         debug('couldn\'t get programme information', err);
+        return [];
       }), bent('string')(`https://genome.ch.bbc.co.uk/schedules/service_${station.bbcMeta.rmsId}/${yesterdayString}`).then(handler, err => {
         debug('couldn\'t get yesterday\'s programme information', err);
+        return [];
       })]).then(infoArr => {
         this.schedules[station.bbcMeta.rmsId] = infoArr.flat();
         this._pollProgrammes([station]);
