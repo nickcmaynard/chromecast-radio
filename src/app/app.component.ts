@@ -1,9 +1,11 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import * as hash from 'object-hash';
 import { CommService } from './comm.service';
+import { AppConfigService } from './app-config.service';
 import { NowPlayingPaneComponent } from './now-playing-pane/now-playing-pane.component';
 import { RadioPaneComponent } from './radio-pane/radio-pane.component';
 import { SingleLineComponent } from './single-line/single-line.component';
+import { Title } from '@angular/platform-browser';
 
 import {
   SwiperModule, SwiperComponent, SwiperDirective, SwiperConfigInterface,
@@ -37,10 +39,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     pagination: true
   };
 
-  constructor(private commService: CommService) {
+  constructor(private commService: CommService, private titleService: Title, private appConfigService: AppConfigService) {
     this.title = 'Beans\' Radio';
     this.programmes = {};
     this.tracks = {};
+    titleService.setTitle(appConfigService.pageTitle || "Chromecast Radio");
   }
 
   ngOnInit() {

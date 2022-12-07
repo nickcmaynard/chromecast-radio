@@ -7,8 +7,6 @@
     "dev-frontend": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.json --verbose",
     "build": "ng build",
     "//": "replace the WEBAPP_TITLE with that in .env",
-    "postbuild": "dotenv npm run replace-dist-title",
-    "replace-dist-title": "replace 'WEBAPP_TITLE' \"${WEBAPP_TITLE:-WEBAPP_TITLE}\" dist/index.html",
     "test": "ng test",
     "lint": "ng lint",
     "start": "node server",

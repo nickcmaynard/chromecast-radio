@@ -5,12 +5,18 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const socketio = require('socket.io');
 const debug = require('debug')('Radio:Server');
+const mustacheExpress = require('mustache-express');
 
 // Config
 require('dotenv').config();
 const config = require('config');
 
 if (!process.env.CC_NAME) {
+  console.error("CC_NAME env variable undefined, see README config section");
+  process.exit(128);
+}
+
+if (!process.env.WEBAPP_TITLE) {
   console.error("CC_NAME env variable undefined, see README config section");
   process.exit(128);
 }
@@ -29,6 +35,11 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 // And some static images
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
+// Runtime config to client
+app.get('/config.json', (request, response) => {
+  response.json({ pageTitle: process.env.WEBAPP_TITLE });
+});
 
 // Get the stations
 const stations = config.stations;
