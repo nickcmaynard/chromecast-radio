@@ -40,7 +40,6 @@ jobs:
       with:
         # list of Docker images to use as base name for tags
         images: |
-          nickcmaynard/chromecast-radio
           ghcr.io/nickcmaynard/chromecast-radio
         # Docker tags based on the following events/attributes
         tags: |
