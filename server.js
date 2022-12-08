@@ -5,7 +5,6 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const socketio = require('socket.io');
 const debug = require('debug')('Radio:Server');
-const mustacheExpress = require('mustache-express');
 
 // Config
 require('dotenv').config();

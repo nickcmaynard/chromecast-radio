@@ -19,7 +19,7 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 ## Production
 
 ```
-npm run build
+npm run build-frontend
 npm run start
 ```
 
