@@ -18,7 +18,7 @@ podman run -d --network host --env CC_NAME="My Chromecast" --env WEBAPP_TITLE="M
 
 Copy `.env.example` to `.env`, and edit for your environment.
 
-```
+```sh
 npm install
 npm install -g nodemon # Development only
 ```
@@ -32,13 +32,13 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 
 ### Production
 
-```
+```sh
 npm run build-frontend
 npm run start
 ```
 
 To run at startup via crontab:
-```
+```sh
 @reboot cd ~/chromecast-radio ; /usr/bin/forever start -c /usr/bin/node server.js
 ```
 
