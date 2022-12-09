@@ -1,6 +1,20 @@
 # Chromecast Radio
 
-## Setup
+There are two methods of running this - the pre-built container image, and from source.
+
+## Pre-built container image
+
+```sh
+podman run -d --network host --env CC_NAME="My Chromecast" --env WEBAPP_TITLE="My Radio" ghcr.io/nickcmaynard/chromecast-radio:master
+```
+
+### Notes
+* This will *not* run correctly without `--network host` as mdns broadcast/listening needs to be set up.
+* This will *not* run correctly on a podman machine (a la `brew install podman`) as the mdns stuff won't work in that situation, either.
+
+## From source
+
+### Setup
 
 Copy `.env.example` to `.env`, and edit for your environment.
 
@@ -9,14 +23,14 @@ npm install
 npm install -g nodemon # Development only
 ```
 
-## Development server
+### Development server
 
 Run `DEBUG=Radio:* nodemon server` to start up the backend on `http://localhost:3000/`.
 Run `npm run dev-frontend` to run the frontend dev server.  This will proxy backend requests to the backend.
 
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Production
+### Production
 
 ```
 npm run build-frontend
@@ -30,7 +44,7 @@ To run at startup via crontab:
 
 ## Notes
 
-### Station configuration
+#### Station configuration
 Station configuration is via `config/default.json`.  
 
 Useful links for extending this:
