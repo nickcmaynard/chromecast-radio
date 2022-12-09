@@ -44,6 +44,14 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           }
         },
@@ -55,7 +63,11 @@
           "configurations": {
             "production": {
               "browserTarget": "chromecast-radio:build:production"
-            }
+            },
+            "development": {
+              "browserTarget": "angular.io-example:build:development"
+            },
+            "defaultConfiguration": "development"
           }
         },
         "extract-i18n": {
