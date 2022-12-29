@@ -112,53 +112,50 @@ class CastController extends EventEmitter {
 
   play(station) {
     debug('play', station);
-    if (this.state.play === 'pause' && this.state.media.artist === station.group && this.state.media.title === station.name) {
-      debug('device is paused on correct station, resuming');
-      this.dm.playDevice();
-    } else {
-      debug('starting new media receiver for new station');
-      // Wait until we have a connection!
-      this.clientDeferred.promise.then(() => {
-        const playerDebug = require('debug')(`Radio:CastController:player:${Math.floor(Math.random() * 1000)}`);
-        this.client.launch(DefaultMediaReceiver, (err, player) => {
-          playerDebug('launching receiver');
-          this.player = player;
+    
+    debug('starting new media receiver for new station');
+    // Wait until we have a connection!
+    this.clientDeferred.promise.then(() => {
+      const playerDebug = require('debug')(`Radio:CastController:player:${Math.floor(Math.random() * 1000)}`);
+      this.client.launch(DefaultMediaReceiver, (err, player) => {
+        playerDebug('launching receiver');
+        this.player = player;
 
-          var media = {
+        var media = {
 
-          	// Here you can plug an URL to any mp4, webm, mp3 or jpg file with the proper contentType.
-            // contentId: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4',
-            // contentType: 'video/mp4',
-            // streamType: 'BUFFERED', // or LIVE
-            contentId: station.content,
-            contentType: station.contentType,
-            streamType: station.streamType || 'LIVE',
+          // Here you can plug an URL to any mp4, webm, mp3 or jpg file with the proper contentType.
+          // contentId: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4',
+          // contentType: 'video/mp4',
+          // streamType: 'BUFFERED', // or LIVE
+          contentId: station.content,
+          contentType: station.contentType,
+          streamType: station.streamType || 'LIVE',
 
-            // Title and cover displayed while buffering
-            metadata: {
-              type: 0,
-              metadataType: 0,
-              artist: station.group,
-              title: station.name,
-              images: [
-                { url: station.image }
-              ]
-            }
-          };
+          // Title and cover displayed while buffering
+          metadata: {
+            type: 0,
+            metadataType: 0,
+            artist: station.group,
+            title: station.name,
+            images: [
+              { url: station.image }
+            ]
+          }
+        };
 
-          player.on('status', function(status) {
-            playerDebug('status broadcast playerState=%s', status.playerState);
-          });
-
-          playerDebug('app "%s" launched, loading media %s ...', player.session.displayName, media.contentId);
-
-          player.load(media, { autoplay: true }, function(err, status) {
-            playerDebug('media loaded playerState=%s', status && status.playerState);
-          });
-
+        player.on('status', function(status) {
+          playerDebug('status broadcast playerState=%s', status.playerState);
         });
+
+        playerDebug('app "%s" launched, loading media %s ...', player.session.displayName, media.contentId);
+
+        player.load(media, { autoplay: true }, function(err, status) {
+          playerDebug('media loaded playerState=%s', status && status.playerState);
+        });
+
       });
-    }
+    });
+
   }
 
 };
