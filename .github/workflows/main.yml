@@ -35,7 +35,7 @@ jobs:
           ghcr.io/nickcmaynard/chromecast-radio:sha-${{env.SHORT_SHA}}
         containerfiles: |
           ./Dockerfile
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64
         context: .
 
     - name: Push to GHCR
