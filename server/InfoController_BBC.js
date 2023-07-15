@@ -6,6 +6,9 @@ const debug = require('debug')('Radio:InfoController_BBC');
 
 const jsonpClient = require('jsonp-client');
 const bent = require('bent');
+
+const axios = require('axios');
+
 const htmlparser2 = require("htmlparser2");
 const domutils = require('domutils'); 
 
@@ -74,60 +77,31 @@ class InfoController_BBC extends EventEmitter {
       yesterday.setDate(yesterday.getDate()-1);
       const yesterdayString = yesterday.toISOString().substring(0,10);
       
-      
-      // get the HTML response
-      // https://genome.ch.bbc.co.uk/schedules/service_bbc_radio_two/2022-07-28
-      const handler = response => {
-        // build an HTML parser
-        const dom = htmlparser2.parseDocument(response);
-        // debug(dom);
-        // Fetch the script & JSON from the HTML
-        const thescripttag = domutils.filter(e => { return e.type==="script" && e.attribs.id==='__NEXT_DATA__' }, dom, true, 1);
-        // debug(thescripttag);
-
-        const info = JSON.parse(domutils.textContent(thescripttag)).props.pageProps.result.schedule.items.map(item => {
-          return {
-            start: _.get(item[0], 'scheduleInfo.start'),
-            end: _.get(item[0], 'scheduleInfo.end'),
-            service_id: station.bbcMeta.rmsId,
-            synopses: _.get(item[0], 'myClipOrEpisode.synopsisList', []).reduce((result, item) => {
-              result[item.length] = item.text;
-              return result;
-            }, {}),
-            titles: {
-              primary: _.get(item[0], 'title'),
-              secondary: _.get(item[0], 'myClipOrEpisode.shortTitle')
-            },
-            image_url: _.get(item[0], 'myClipOrEpisode.imageFor.myImage.template')
-          }
-        });
-        
-        // debug('got schedules information', JSON.stringify(info, null, 2));
-        
-        return info;
-      };
-      
-      Promise.all([bent('string')(`https://genome.ch.bbc.co.uk/schedules/service_${station.bbcMeta.rmsId}/${dateString}`).then(handler, err => {
+      // Get today's schedule
+      const pToday = axios({
+        method: 'get',
+        url: `https://rms.api.bbc.co.uk/v2/broadcasts/schedules/${station.bbcMeta.rmsId}/${dateString}`,
+        responseType: 'json'
+      }).then(response => response.data.data, err => {
         debug('couldn\'t get programme information', err);
         return [];
-      }), bent('string')(`https://genome.ch.bbc.co.uk/schedules/service_${station.bbcMeta.rmsId}/${yesterdayString}`).then(handler, err => {
+      });
+
+      // Get yesterday's schedule (handle the midnight rollover issue)
+      const pYesterday = axios({
+        method: 'get',
+        url: `https://rms.api.bbc.co.uk/v2/broadcasts/schedules/${station.bbcMeta.rmsId}/${dateString}`,
+        responseType: 'json'
+      }).then(response => response.data.data, err => {
         debug('couldn\'t get yesterday\'s programme information', err);
         return [];
-      })]).then(infoArr => {
+      });
+
+      Promise.all([pToday, pYesterday]).then(infoArr => {
         this.schedules[station.bbcMeta.rmsId] = infoArr.flat();
         this._pollProgrammes([station]);
       });
       
-      
-      // 
-      // bent('json')(`https://rms.api.bbc.co.uk/v2/broadcasts/schedules/${station.bbcMeta.rmsId}/${dateString}`).then(response => {
-      //   // debug('got schedules information', JSON.stringify(response, null, 2));
-      //   this.schedules[station.bbcMeta.rmsId] = response.data;
-      //   this._pollProgrammes([station]);
-      // }, err => {
-      //   debug('couldn\'t get programme information', err);
-      // });
-      // 
     });
   }
   
@@ -153,25 +127,26 @@ class InfoController_BBC extends EventEmitter {
     
     // Get track info
     stations.forEach(station => {
-      // FORBIDDEN :(
-      // 
-      // bent('json')(`https://rms.api.bbc.co.uk/v2/services/${station.bbcMeta.rmsId}/segments/latest`).then(response => {
-      //   debug('got track information', JSON.stringify(response, null, 2));
-      //   if (_.get(response, 'data[0].offset.now_playing')) {
-      //     debug(`track is playing on rmsId ${station.bbcMeta.rmsId}`);
-      //     this.emit('track-info', { station, track: {
-      //       artistName: response.data[0].titles.primary,
-      //       name: response.data[0].titles.secondary
-      //     }});
-      //   } else {
-      //     debug(`track is NOT playing on rmsId ${station.bbcMeta.rmsId}`);
-      //     this.emit('track-info', { station, track: undefined });
-      //   }
-      // }, err => {
-      //   debug('couldn\'t get track information', err);
-      // });
-      // 
-      this.emit('track-info', { station, track: undefined });
+      axios({
+        method: 'get',
+        url: `https://rms.api.bbc.co.uk/v2/services/${station.bbcMeta.rmsId}/segments/latest`,
+        responseType: 'json'
+      }).then(aResponse => {
+        const response = aResponse.data;
+        // debug('got track information', JSON.stringify(response, null, 2));
+        if (_.get(response, 'data[0].offset.now_playing')) {
+          debug(`track is playing on rmsId ${station.bbcMeta.rmsId}`);
+          this.emit('track-info', { station, track: {
+            artistName: response.data[0].titles.primary,
+            name: response.data[0].titles.secondary
+          }});
+        } else {
+          debug(`track is NOT playing on rmsId ${station.bbcMeta.rmsId}`);
+          this.emit('track-info', { station, track: undefined });
+        }
+      }, err => {
+        debug('couldn\'t get track information', err);
+      });
     });
   }
 
