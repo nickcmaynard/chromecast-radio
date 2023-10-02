@@ -2,9 +2,13 @@
 FROM registry.access.redhat.com/ubi9/nodejs-18 AS build
 WORKDIR ${APP_ROOT}
 
-COPY . .
-
+COPY package*.json .
 RUN npm ci
+
+COPY src src
+COPY angular.json .
+COPY tsconfig*.json .
+
 RUN npm run build-frontend
 RUN npm ci --omit=dev
 
