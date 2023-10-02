@@ -19,7 +19,7 @@ jobs:
     steps:
     # Get the repository's code
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Compute short SHA
       run: echo "SHORT_SHA=`git rev-parse --short HEAD`" >> $GITHUB_ENV
