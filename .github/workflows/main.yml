@@ -39,7 +39,7 @@ jobs:
           ghcr.io/nickcmaynard/chromecast-radio:${{github.ref_name}}
           ghcr.io/nickcmaynard/chromecast-radio:sha-${{env.SHORT_SHA}}
         containerfiles: |
-          ./Conatainerfile
+          ./Containerfile
         platforms: linux/amd64,linux/arm64
         context: .
 
