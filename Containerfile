@@ -4,6 +4,7 @@ WORKDIR ${APP_ROOT}
 
 COPY package*.json .
 
+RUN npm install -g npm   # Upgrade buggy npm
 RUN npm ci --omit=dev
 
 # Build the code
@@ -12,6 +13,7 @@ WORKDIR ${APP_ROOT}
 
 COPY . .
 
+RUN npm install -g npm   # Upgrade buggy npm
 RUN npm ci
 RUN npm run build-frontend
 
