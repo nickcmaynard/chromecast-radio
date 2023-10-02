@@ -1,20 +1,22 @@
+# Get the runtime dependencies in node_modules
 FROM registry.access.redhat.com/ubi9/nodejs-16 AS deps
-
 WORKDIR ${APP_ROOT}
+
 COPY package*.json .
 
-RUN npm install --omit dev
+RUN npm ci --omit=dev
 
+# Build the code
 FROM registry.access.redhat.com/ubi9/nodejs-16 AS build
-
 WORKDIR ${APP_ROOT}
+
 COPY . .
 
-RUN npm install
+RUN npm ci
 RUN npm run build-frontend
 
+# Assemble the image
 FROM registry.access.redhat.com/ubi9/nodejs-16-minimal AS release
-
 WORKDIR ${APP_ROOT}
 
 COPY --from=deps ${APP_ROOT}/node_modules node_modules
