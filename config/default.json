@@ -2,7 +2,7 @@
   "stations": [{
     "group": "BBC",
     "name": "Radio 1",
-    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_one.m3u8",
+    "content": "http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_one/bbc_radio_one.isml/bbc_radio_one-audio=320000.norewind.m3u8",
     "contentType": "application/x-mpeg",
     "image": "/assets/images/stations/BBC_Radio_1_2022.svg",
     "bbcMeta": {
@@ -12,7 +12,7 @@
   }, {
     "group": "BBC",
     "name": "Radio 2",
-    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_two.m3u8",
+    "content": "http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_two/bbc_radio_two.isml/bbc_radio_two-audio=320000.norewind.m3u8",
     "contentType": "application/x-mpeg",
     "image": "/assets/images/stations/BBC_Radio_2_2022.svg",
     "bbcMeta": {
@@ -23,7 +23,7 @@
   }, {
     "group": "BBC",
     "name": "Radio 3",
-    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_three.m3u8",
+    "content": "http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_three/bbc_radio_three.isml/bbc_radio_three-audio=320000.norewind.m3u8",
     "contentType": "application/x-mpeg",
     "image": "/assets/images/stations/BBC_Radio_3_2022.svg",
     "bbcMeta": {
@@ -33,7 +33,7 @@
   }, {
     "group": "BBC",
     "name": "Radio 4",
-    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_fourfm.m3u8",
+    "content": "http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_fourfm/bbc_radio_fourfm.isml/bbc_radio_fourfm-audio=320000.norewind.m3u8",
     "contentType": "application/x-mpeg",
     "image": "/assets/images/stations/BBC_Radio_4_2022.svg",
     "bbcMeta": {
@@ -43,7 +43,7 @@
   }, {
     "group": "BBC",
     "name": "Radio 5 Live",
-    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_radio_five_live.m3u8",
+    "content": "http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_radio_five_live/bbc_radio_five_live.isml/bbc_radio_five_live-audio=320000.norewind.m3u8",
     "contentType": "application/x-mpeg",
     "image": "/assets/images/stations/BBC_Radio_5_Live_2022.svg",
     "bbcMeta": {
@@ -53,7 +53,7 @@
   }, {
     "group": "BBC",
     "name": "Radio 6 Music",
-    "content": "http://a.files.bbci.co.uk/media/live/manifesto/audio/simulcast/hls/uk/sbr_high/ak/bbc_6music.m3u8",
+    "content": "http://as-hls-ww-live.akamaized.net/pool_904/live/ww/bbc_6music/bbc_6music.isml/bbc_6music-audio=320000.norewind.m3u8",
     "contentType": "application/x-mpeg",
     "image": "/assets/images/stations/BBC_Radio_6_Music_2022.svg",
     "bbcMeta": {
